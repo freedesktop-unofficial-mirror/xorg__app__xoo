@@ -1,9 +1,9 @@
 #include <gtk/gtkmenuitem.h>
 #include "fakedev.h"
 
-#define GCONF_DISPLAY "/apps/matchbox-nest/display"
-#define GCONF_SERVER "/apps/matchbox-nest/xserver"
-#define GCONF_SERVER_OPTIONS "/apps/matchbox-nest/xserver-options"
+#define GCONF_DISPLAY "/apps/Xoo/display"
+#define GCONF_SERVER "/apps/Xoo/xserver"
+#define GCONF_SERVER_OPTIONS "/apps/Xoo/xserver-options"
 
 void gconf_prefs_init(FakeApp *app);
 

@@ -1,6 +1,6 @@
-/* matchbox-nest - a graphical wrapper around xnest
+/* Xoo - a graphical wrapper around xnest
  *
- *  Copyright 2004 Matthew Allum
+ *  Copyright 2004,2005 Matthew Allum, Openedhand Ltd <mallum@o-hand.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

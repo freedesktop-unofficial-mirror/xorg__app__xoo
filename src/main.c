@@ -1,6 +1,6 @@
-/* matchbox-nest - a graphical wrapper around xnest
+/* Xoo - a graphical wrapper around xnest
  *
- *  Copyright 2004 Matthew Allum
+ *  Copyright 2004,2005 Matthew Allum, Openedhand Ltd <mallum@o-hand.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -52,9 +52,9 @@ fakeapp_new(void)
   app->key_rep_timeout.tv_usec      = 40000;
   app->key_rep_timeout.tv_sec       = 0;
 
-  app->win_title                    = "matchbox-nest";
+  app->win_title                    = "Xoo";
 
-  glade = glade_xml_new (PKGDATADIR "/matchbox-nest.glade", NULL, NULL);
+  glade = glade_xml_new (PKGDATADIR "/Xoo.glade", NULL, NULL);
   g_assert (glade != NULL);
   
   glade_xml_signal_connect_data (glade, "on_send_signal_activate", (GCallback)on_send_signal_activate, app);

@@ -1,3 +1,21 @@
+2005-01-12  mallum,,,  <mallum@openedhand.com>
+
+	* README:
+	* configure.ac:
+	* data/Makefile.am:
+	* data/Xoo.glade:
+	* data/matchbox-nest.glade:
+	* src/Makefile.am:
+	* src/button.c:
+	* src/callbacks.c:
+	* src/config.c:
+	* src/fakedev.h:
+	* src/keys.c:
+	* src/main.c: (fakeapp_new):
+	* src/prefs.c:
+	* src/prefs.h:
+	Rename matchbox-nest -> Xoo
+
 2004-12-03  mallum,,,  <mallum@openedhand.com>
 
 	* Makefile.am:

@@ -7,7 +7,7 @@
   <property name="can_focus">True</property>
   <property name="has_focus">True</property>
   <property name="events">GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK</property>
-  <property name="title" translatable="yes">Matchbox-Nest</property>
+  <property name="title" translatable="yes">Xoo</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -466,7 +466,7 @@
 </widget>
 
 <widget class="GtkWindow" id="aboutwindow">
-  <property name="title" translatable="yes">Matchbox Nest</property>
+  <property name="title" translatable="yes">Xoo</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -489,7 +489,7 @@
       <child>
 	<widget class="GtkLabel" id="label6">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">&lt;span size=&quot;xx-large&quot;&gt;&lt;b&gt;Matchbox Nest&lt;/b&gt;&lt;/span&gt;</property>
+	  <property name="label" translatable="yes">&lt;span size=&quot;xx-large&quot;&gt;&lt;b&gt;Xoo&lt;/b&gt;&lt;/span&gt;</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
