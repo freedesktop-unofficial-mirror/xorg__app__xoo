@@ -1,0 +1,52 @@
+<ipaq>
+
+<!--
+	Example config 'device' file for an ipaq.  
+	Hopefully the format is pretty self explanatory. 
+-->
+
+<!-- 
+     first define the window size, image and display geometry for your 
+     'fake' device.
+-->
+
+<device  width='417' height='614' 
+         display_width='240' display_height='320' 
+         display_x='81' display_y='125' 
+	 img='ipaq3800.png' />
+
+<!-- Buttons ( optional )
+     The define each of the buttons. Note, there are a couple of extra 
+     optional attributes not used here;
+
+     - 'img' - set to an image pathname for the down state of the button
+       
+     - repreat = 'on|off' , Turn key repeat on/off for that key. By default
+       key repeat is on. 
+ -->
+
+<!-- PIM buttons, left to right -->
+
+<button x='83' y='507' width='25' height='25' key='a'/> 
+
+<button x='112' y='489' width='25' height='25' key='b'/> 
+
+<button x='267' y='489' width='25' height='25' key='c'/> 
+
+<button x='293' y='507' width='25' height='25' key='d'/> 
+
+<!-- Direction buttons n/e/s/w -->
+
+<button x='173' y='495' width='56' height='20' key='Up'/> 
+
+<button x='230' y='500' width='37' height='42' key='Right'/> 
+
+<button x='173' y='535' width='56' height='20' key='Down'/> 
+
+<button x='135' y='500' width='37' height='42' key='Left'/> 
+
+<!-- enter button, notice image -->
+
+<button x='173' y='516' width='56' height='18' key='Return' img='dot.png'/> 
+
+</ipaq>

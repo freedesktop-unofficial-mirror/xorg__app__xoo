@@ -1,0 +1,185 @@
+2004-12-03  mallum,,,  <mallum@openedhand.com>
+
+	* Makefile.am:
+	Add snapshot target
+	* src/prefs.c: (onpreferences_activate):
+	Remove unused var.
+
+2004-12-02  Ross Burton  <ross@burtonini.com>
+
+	* configure.ac:
+	Bump version.
+
+	* src/prefs.c:
+	Be aggressive about saving prefs and restarting the server, to
+	avoid hastles with command-line options.
+
+2004-12-02  mallum,,,  <mallum@openedhand.com>
+
+	* data/matchbox-nest.glade:
+	Change 'ok' -> 'Apply', Update copyright in about dialog.
+	* src/keys.c: (keys_xnest_connect), (keys_init):
+	* src/main.c: (fakeapp_start_server), (fakeapp_restart_server):
+	Attempt to make server start failure messages more useful
+
+2004-12-02  Ross Burton  <ross@burtonini.com>
+
+	* data/matchbox-nest.glade:
+	Rename the Send Signal menu item.
+
+	* src/main.c:
+	* src/fakedev.h:
+	Disable the Send Debug Signal menu item unless Xephyr is being
+	used.
+
+2004-11-30  Ross Burton  <ross@burtonini.com>
+
+	* data/matchbox-nest.glade:
+	Add an About dialog, and redesign the Prefs dialog.
+
+	* src/fakedev.h:
+	* src/callbacks.c:
+	* src/callbacks.h:
+	Add an about window and generalise the hide-on-delete handler.
+	
+	* src/prefs.c:
+	* src/prefs.h:
+	Restart the server if the prefs are changed.
+	
+	* src/main.c:
+	Handle the about window, and handle a restarting server correctly.
+
+	* src/keys.c:
+	Fix a leak.
+	
+2004-11-30  Ross Burton  <ross@burtonini.com>
+
+	* configure.ac:
+	Version 0.4.
+
+2004-11-15  Ross Burton  <ross@burtonini.com>
+
+	* data/matchbox-nest.glade:
+	* src/fakedev.h:
+	* src/keys.c:
+	* src/main.c:
+	Make the keyboard events work again.
+
+2004-11-14  Ross Burton  <ross@burtonini.com>
+
+	* src/main.c:
+	Make the hardware buttons work again by making them visible...
+
+2004-11-12  mallum  <mallum@handhelds.org>
+
+	* src/config.c: (config_reinit):
+	Add config_reinit ( just a stub for now ).
+
+	* src/main.c: (fakeapp_new), (fakeapp_start_server),
+	(fakeapp_catch_sigchild), (fakeapp_restart_server), (usage),
+	(main):
+	Hack signal handling to detect 'crashing' xserver.
+	Add fakeapp_restart_server().
+	Add --xnest-bin-options cmd line switch. Default it to '-ac' 
+	Change start_server() to execv with --xnest-bin-options 	
+
+2004-11-12  Ross Burton  <ross@burtonini.com>
+
+	* configure.ac:
+	Look for GConf at configure time.
+	
+	* data/matchbox-nest.glade:
+	Remove a separator, so when the Prefs entry is hidden the menu
+	doesn't look silly.
+
+	* src/Makefile.am:
+	Only build with prefs.[ch] if GConf was found.
+
+	* src/fakedev.h:
+	* src/main.c:
+	Only hook up the Preferences dialog if GConf was found.
+
+	* src/prefs.c:
+	Handle xnest_bin_options being NULL.
+
+2004-11-11  Ross Burton  <ross@burtonini.com>
+
+	* configure.ac:
+	Look for GConf.
+
+	* data/matchbox-nest.glade:
+	Add Preferences dialogue.
+
+	* src/Makefile.am:
+	* src/callbacks.h:
+	* src/fakedev.h:
+	* src/main.c:
+	* src/prefs.h:
+	* src/prefs.c:
+	Add a preferences dialogue.
+
+2004-11-11  Ross Burton  <ross@burtonini.com>
+
+	* src/button.c:
+	* src/config.c:
+	* src/keys.c:
+	Sanity check, add missing includes.
+
+2004-11-10  Ross Burton  <ross@burtonini.com>
+
+	* src/main.c:
+	Stop leaking GCs.
+
+2004-11-09  Ross Burton  <ross@burtonini.com>
+
+	* data/Makefile.am:
+	Add the glade file to EXTRA_DIST.
+
+2004-11-08  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Look for GTK+, not libmb.
+
+	* data/Makefile.am:
+	* data/matchbox-next.glade:
+	* src/Makefile.am:
+	* src/fakedev.h:
+	* src/button.c:
+	* src/callbacks.[ch]:
+	* src/config.c:
+	* src/main.c:
+	Port to GTK+, adding a few new features en route.
+
+2004-06-04  Matthew Allum,,,  <mallum@handhelds.org>
+
+	reviewed by: <delete if not using a buddy>
+
+	* src/fakedev.h:
+	* src/main.c: (fakeapp_new), (fakeapp_create_gui), (usage), (main):
+	Allow user to set window title
+
+2004-06-04  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* AUTHORS:
+	* COPYING:
+	* INSTALL:
+	* Makefile.am:
+	* README:
+	* autogen.sh:
+	* configure.ac:
+	* data/Makefile.am:
+	* data/dot.png:
+	* data/ipaq3800.png:
+	* data/ipaq3800.xml:
+	* src/Makefile.am:
+	* src/button.c: (button_new), (button_find_from_win),
+	(button_press), (button_release), (button_activate):
+	* src/config.c: (config_load_file), (config_get_val),
+	(config_load_image), (config_handle_button_tag),
+	(config_handle_device_tag), (config_xml_start_cb), (config_init):
+	* src/fakedev.h:
+	* src/keys.c: (keys_xnest_connect), (keys_send_key), (keys_init):
+	* src/main.c: (fakeapp_new), (fakeapp_create_gui),
+	(fakeapp_start_server), (get_xevent_timed), (fakeapp_event_loop),
+	(usage), (main):
+	Initial Import into CVS. 

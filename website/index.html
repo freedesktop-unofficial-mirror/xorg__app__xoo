@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Matchbox Nest</title>
+    <link rel="stylesheet" type="text/css" href="default.css" />
+    <link rel="icon" href="http://www.openedhand.com/images/favicon.ico" />
+    <meta name="description" content="matchbox nest embedded x" />
+  </head>
+
+  <body>
+    <div id="header">
+      <h1>Matchbox Nest</h1>
+    </div>
+    
+    <div id="content">
+      <p>
+        Matchbox Nest is a graphical wrapper around Xnest or Xephyr. It is
+        intended for embedded developers that want to simulate a target device
+        (with an accurate display size, working hardware buttons, etc) on a
+        desktop machine.
+      </p>
+      
+      <p>
+        The size of the embedded X server, and the image around it, are
+        themable by the user.  The default theme is based on a Compaq iPaq,
+        and supports the hardware buttons.  Creating new themes is done by
+        writing a single simple XML file.
+      </p>
+      
+      <p>
+        The embedded X server can either be <tt>Xnest</tt> (XFree86/X.org) or <a
+        href="http://www.freedesktop.org/wiki/Software_2fXephyr"><tt>Xephyr</tt></a>
+        (kdrive).  The advantage of using <tt>Xephyr</tt> is that it supports
+        the newer X extensions such as Render, RandR, Composite, and Damage;
+        allowing you to test applications using these extensions even if your
+        native X server doesn't.  Matchbox Nest can also send a signal to
+        <tt>Xephyr</tt> so that it will highlight the region it is painting, to
+        help debug redraw problems.
+      </p>
+      
+      <h2>Screenshots</h2>
+      <p>
+        This is the default theme, a Compaq iPaq.
+      </p>
+      <img src="mb-nest-1.png" alt="Compaq iPaq theme"/>
+    
+      <h2>Download</h2>
+      <p>
+        Tarballs for download are available at <a
+        href="http://projects.o-hand.com/matchbox/sources/matchbox-nest/"><tt>http://projects.o-hand.com/matchbox/sources/matchbox-nest/</tt></a>.
+        Debian packages are prepared and should be in <tt>unstable</tt> shortly.
+      </p>
+    </div>
+  </body>
+</html>
