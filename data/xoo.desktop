@@ -4,6 +4,7 @@ Name=Xoo
 Comment=Handheld Device Simulator
 Exec=xoo
 Terminal=false
+Icon=xoo.png
 Type=Application
 Categories=GNOME;Application;Development;
 StartupNotify=true

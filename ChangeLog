@@ -1,3 +1,27 @@
+2005-01-28  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Bump Up version
+
+	* data/Makefile.am:
+	* data/xoo.desktop:
+	* data/xoo.svg:
+	Add an icon for .dotdesktop
+
+	* data/Xoo.glade:
+	* src/callbacks.c: (on_about_activate), (on_delete_event_hide):
+	* src/callbacks.h:
+	* src/fakedev.h:
+	* src/main.c: (fakeapp_new), (fakeapp_create_gui), (key_event),
+	(fakeapp_start_server), (fakeapp_catch_sigchild),
+	(fakeapp_restart_server), (usage), (main):
+	* src/prefs.c: (gconf_prefs_init), (on_prefs_apply_clicked):
+	* src/prefs.h:
+	Add support for: 
+            - Setting command to run on startup
+            - Changing device on the fly ( via very nasty hack )
+	Also wrap some code at 80 chars.    
+
 2005-01-25  Ross Burton  <ross@burtonini.com>
 
 	* data/Makefile.am:

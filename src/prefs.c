@@ -43,12 +43,21 @@ void gconf_prefs_init(FakeApp *app) {
   if (s != NULL && *s != '\0') {
     app->xnest_bin_options = s;
   }
+
+  s = gconf_client_get_string (gconf, GCONF_START_CMD, NULL);
+  if (s != NULL && *s != '\0') {
+    app->start_cmd = s;
+  }
+
 }
 
 void on_preferences_activate (GtkMenuItem *menuitem, FakeApp *app) {
   gtk_entry_set_text (GTK_ENTRY (app->entry_display), app->xnest_dpy_name);
   gtk_entry_set_text (GTK_ENTRY (app->entry_server), app->xnest_bin_path);
   gtk_entry_set_text (GTK_ENTRY (app->entry_options), app->xnest_bin_options ? app->xnest_bin_options : "");
+
+  gtk_entry_set_text (GTK_ENTRY (app->entry_start), app->start_cmd ? app->start_cmd : "");
+
   gtk_window_present (GTK_WINDOW (app->prefs_window));
 }
 
@@ -63,6 +72,9 @@ void on_prefs_apply_clicked (GtkWidget *widget, FakeApp *app) {
 
   s = gtk_entry_get_text (GTK_ENTRY (app->entry_options));
   gconf_client_set_string (gconf, GCONF_SERVER_OPTIONS, s, NULL);
+
+  s = gtk_entry_get_text (GTK_ENTRY (app->entry_start));
+  gconf_client_set_string (gconf, GCONF_START_CMD, s, NULL);
 
   gconf_prefs_init (app);
   fakeapp_restart_server (app);

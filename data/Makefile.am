@@ -1,4 +1,4 @@
-EXTRA_DIST = ipaq3800.xml ipaq3800.png dot.png Xoo.glade
+EXTRA_DIST = ipaq3800.xml ipaq3800.png dot.png Xoo.glade xoo.desktop xoo.png
 
 devicedir = $(pkgdatadir)
 device_DATA = ipaq3800.xml ipaq3800.png dot.png
@@ -8,3 +8,6 @@ ui_DATA = Xoo.glade
 
 desktopdir = $(datadir)/applications
 desktop_DATA = xoo.desktop
+
+pixmapdir = $(datadir)/pixmaps
+pixmap_DATA = xoo.png

@@ -29,7 +29,7 @@
 #define XNEST_BIN "/usr/X11R6/bin/Xnest"
 
 /* Used by the signal handler to detect which child has died */
-static pid_t xnest_pid;
+pid_t xnest_pid;
 
 static gboolean key_event (GtkWidget *widget, GdkEventKey *event, FakeApp *app);
 
@@ -57,40 +57,76 @@ fakeapp_new(void)
   glade = glade_xml_new (PKGDATADIR "/Xoo.glade", NULL, NULL);
   g_assert (glade != NULL);
   
-  glade_xml_signal_connect_data (glade, "on_send_signal_activate", (GCallback)on_send_signal_activate, app);
-  glade_xml_signal_connect_data (glade, "on_quit_activate", (GCallback)on_quit_activate, app);
-  glade_xml_signal_connect_data (glade, "on_about_activate", (GCallback)on_about_activate, app);
-  glade_xml_signal_connect_data (glade, "on_window_destroy", (GCallback)on_window_destroy, app);
-  glade_xml_signal_connect_data (glade, "on_popup_menu_show", (GCallback)on_popup_menu_show, app);
-  glade_xml_signal_connect_data (glade, "on_show_decorations_toggle", (GCallback)on_show_decorations_toggle, app);
-  glade_xml_signal_connect_data (glade, "on_delete_event_hide", (GCallback)on_delete_event_hide, app);
+  glade_xml_signal_connect_data (glade, "on_send_signal_activate", 
+				 (GCallback)on_send_signal_activate, app);
+
+  glade_xml_signal_connect_data (glade, "on_quit_activate", 
+				 (GCallback)on_quit_activate, app);
+
+  glade_xml_signal_connect_data (glade, "on_about_activate", 
+				 (GCallback)on_about_activate, app);
+
+  glade_xml_signal_connect_data (glade, "on_window_destroy", 
+				 (GCallback)on_window_destroy, app);
+
+  glade_xml_signal_connect_data (glade, "on_popup_menu_show", 
+				 (GCallback)on_popup_menu_show, app);
+
+  glade_xml_signal_connect_data (glade, "on_show_decorations_toggle", 
+				 (GCallback)on_show_decorations_toggle, app);
+
+  glade_xml_signal_connect_data (glade, "on_delete_event_hide", 
+				 (GCallback)on_delete_event_hide, app);
+
+  glade_xml_signal_connect_data (glade, "on_select_device_activate", 
+				 (GCallback)on_select_device, app);
+
 #if HAVE_GCONF
-  glade_xml_signal_connect_data (glade, "on_preferences_activate", (GCallback)on_preferences_activate, app);
-  glade_xml_signal_connect_data (glade, "on_prefs_apply_clicked", (GCallback)on_prefs_apply_clicked, app);
-  glade_xml_signal_connect_data (glade, "on_prefs_cancel_clicked", (GCallback)on_prefs_cancel_clicked, app);
+  glade_xml_signal_connect_data (glade, "on_preferences_activate", 
+				 (GCallback)on_preferences_activate, app);
+
+  glade_xml_signal_connect_data (glade, "on_prefs_apply_clicked", 
+				 (GCallback)on_prefs_apply_clicked, app);
+
+  glade_xml_signal_connect_data (glade, "on_prefs_cancel_clicked", 
+				 (GCallback)on_prefs_cancel_clicked, app);
 #else
+
   gtk_widget_hide (glade_xml_get_widget (glade, "preferences"));
+
 #endif
 
   app->window = glade_xml_get_widget (glade, "window");
   app->fixed = glade_xml_get_widget (glade, "fixed");
   gtk_fixed_set_has_window (GTK_FIXED (app->fixed), TRUE);
+
   app->winnest = glade_xml_get_widget (glade, "winnest");
-  g_signal_connect(app->window, "key-press-event", (GCallback)key_event, app);
-  g_signal_connect(app->window, "key-release-event", (GCallback)key_event, app);
+
+  g_signal_connect(app->window, "key-press-event", 
+		   (GCallback)key_event, app);
+
+  g_signal_connect(app->window, "key-release-event", 
+		   (GCallback)key_event, app);
 
   app->prefs_window = glade_xml_get_widget (glade, "prefswindow");
-  gtk_window_set_transient_for (GTK_WINDOW (app->prefs_window), GTK_WINDOW (app->window));
+  gtk_window_set_transient_for (GTK_WINDOW (app->prefs_window), 
+				GTK_WINDOW (app->window));
+
   app->entry_display = glade_xml_get_widget (glade, "entry_display");
   app->entry_server = glade_xml_get_widget (glade, "entry_server");
   app->entry_options = glade_xml_get_widget (glade, "entry_options");
+  app->entry_start = glade_xml_get_widget (glade, "entry_start");
 
   app->debug_menu = glade_xml_get_widget (glade, "send_signal");
   app->popupmenu = glade_xml_get_widget (glade, "popupmenu_menu");
   app->about_window = glade_xml_get_widget (glade, "aboutwindow");
-  gtk_window_set_transient_for (GTK_WINDOW (app->about_window), GTK_WINDOW (app->window));
-  g_signal_connect_swapped (glade_xml_get_widget (glade, "button_about_close"), "clicked", G_CALLBACK (gtk_widget_hide), app->about_window);
-  
+
+  gtk_window_set_transient_for (GTK_WINDOW (app->about_window), 
+				GTK_WINDOW (app->window));
+
+  g_signal_connect_swapped (glade_xml_get_widget (glade, "button_about_close"),
+			    "clicked", G_CALLBACK (gtk_widget_hide), 
+			    app->about_window);
   return app;
 }
 
@@ -172,7 +208,9 @@ key_event (GtkWidget *widget, GdkEventKey *event, FakeApp *app)
     xevent.xkey.window = GDK_WINDOW_XWINDOW (app->winnest->window);
     xevent.xkey.root = GDK_WINDOW_XWINDOW (gdk_screen_get_root_window (gdk_drawable_get_screen (app->winnest->window)));
     xevent.xkey.time = event->time;
+
     /* FIXME, the following might cause problems for non-GTK apps */
+
     xevent.xkey.x = 0;
     xevent.xkey.y = 0;
     xevent.xkey.x_root = 0;
@@ -182,9 +220,12 @@ key_event (GtkWidget *widget, GdkEventKey *event, FakeApp *app)
     xevent.xkey.same_screen = TRUE;
     
     gdk_error_trap_push ();
-    XSendEvent (GDK_WINDOW_XDISPLAY (app->winnest->window), app->xnest_window,
+    XSendEvent (GDK_WINDOW_XDISPLAY 
+		(app->winnest->window), app->xnest_window,
                 False, NoEventMask, &xevent);
+
     gdk_display_sync (gtk_widget_get_display (widget));
+
     if (gdk_error_trap_pop ()) {
       g_warning("X error on XSendEvent");
     }
@@ -242,6 +283,23 @@ fakeapp_start_server(FakeApp *app)
   } else {
     gtk_widget_set_sensitive (app->debug_menu, TRUE);
   }
+
+  if (app->start_cmd)
+    {
+      pid = fork();
+      switch (pid) {
+      case 0:
+	setenv("DISPLAY", app->xnest_dpy_name, 1);
+	execl("/bin/sh", "sh", "-c", app->start_cmd, 0);
+	g_warning( "Failed to Launch %s\n", app->start_cmd);
+	exit(1);
+      case -1:
+	g_warning("Failed to Launch %s\n", app->start_cmd);
+	break;
+      default:
+	break;
+      }
+    }    
   
   return FALSE;
 }
@@ -298,6 +356,9 @@ main(int argc, char **argv)
   /* TODO: use popt */
 
   app = fakeapp_new();
+
+  app->argv = argv;
+  app->argc = argc;
 
 #ifdef HAVE_GCONF
   /* Do this here so that command line argument override the GConf prefs */

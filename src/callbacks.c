@@ -16,12 +16,15 @@
 #include "config.h"
 
 #include <signal.h>
+#include <gtk/gtk.h>
 #include <gtk/gtkmain.h>
 #include <gtk/gtkmenu.h>
 #include <gtk/gtkmenuitem.h>
 #include <gtk/gtkcheckmenuitem.h>
 #include <gtk/gtkwindow.h>
 #include "fakedev.h"
+
+extern pid_t xnest_pid;
 
 void on_send_signal_activate (GtkMenuItem *menuitem, FakeApp *app) {
   g_return_if_fail (app->xnest_pid != 0);
@@ -73,4 +76,39 @@ void on_about_activate (GtkMenuItem *menuitem, FakeApp *app) {
 gboolean on_delete_event_hide (GtkWidget *widget, GdkEvent *event, FakeApp *app) {
   gtk_widget_hide (widget);
   return TRUE;
+}
+
+void 
+on_select_device (GtkMenuItem *menuitem, FakeApp *app) 
+{
+  GtkWidget *dialog;
+
+  dialog = gtk_file_chooser_dialog_new ("Open Device",
+					GTK_WINDOW(app->window),
+					GTK_FILE_CHOOSER_ACTION_OPEN,
+					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+					NULL);
+
+  if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+    {
+      char *filename;
+
+      
+      filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+
+      /****** DONT TRY THIS AT HOME KIDS. *******/
+
+      /* xxx FIXME, This is gross - just a very nasty hack for now xxx */
+
+      kill(xnest_pid, 9);
+      sleep(2);
+      execl("/bin/sh", "sh", "-c", "Xoo", "--device", filename, 0);
+
+      g_warning("Failed load device %s\n", filename); 
+
+      g_free (filename);
+    }
+
+  gtk_widget_destroy (dialog);
 }

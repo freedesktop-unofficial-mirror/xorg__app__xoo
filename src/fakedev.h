@@ -42,7 +42,7 @@ struct FakeApp
   GtkWidget *debug_menu;
 
   GtkWidget *prefs_window;
-  GtkWidget *entry_display, *entry_server, *entry_options;
+  GtkWidget *entry_display, *entry_server, *entry_options, *entry_start;
   GtkWidget *about_window;
 
   int            device_width;
@@ -72,6 +72,10 @@ struct FakeApp
   pid_t            xnest_pid;
   
   char           *win_title;
+  char           *start_cmd;
+
+  int             argc; 
+  char          **argv;
 };
 
 struct FakeButton
