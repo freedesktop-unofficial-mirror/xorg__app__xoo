@@ -1,5 +1,11 @@
 2005-01-28  mallum,,,  <mallum@openedhand.com>
 
+	* src/Makefile.am:
+	* src/callbacks.c: (on_select_device):
+	Lower case binary name, Xoo -> xoo
+
+2005-01-28  mallum,,,  <mallum@openedhand.com>
+
 	* src/button.c:
 	* src/callbacks.c: (on_about_activate), (on_delete_event_hide),
 	(on_select_device):

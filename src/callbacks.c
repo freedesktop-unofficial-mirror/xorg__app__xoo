@@ -127,7 +127,7 @@ on_select_device (GtkMenuItem * menuitem, FakeApp * app)
 
       kill (xnest_pid, 9);
       sleep (2);
-      execl ("/bin/sh", "sh", "-c", "Xoo", "--device", filename, 0);
+      execl ("/bin/sh", "sh", "-c", "xoo", "--device", filename, 0);
 
       g_warning ("Failed load device %s\n", filename);
 
