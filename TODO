@@ -1,0 +1,11 @@
+TODO
+====
+
+ * Refactor. 
+ * Make device switching on the fly work. ( needs refactor )
+ * Add 'script to run on startup' option
+ * Make Server restarting more solid.
+ * Add RandR support somehow
+ * Add more devices :) 
+
+   

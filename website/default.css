@@ -29,6 +29,11 @@ body {
 }
 
 #footer {
-	color: #ccc;
+	color: #aaa;
 	text-align: center;
+	font-size: 11px;
+}
+
+#footer a {
+	color: #aaa;
 }

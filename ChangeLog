@@ -1,5 +1,13 @@
 2005-01-12  mallum,,,  <mallum@openedhand.com>
 
+	* website/default.css:
+	* website/index.html:
+	Update website, renaming.
+	* TODO:
+	Added.
+
+2005-01-12  mallum,,,  <mallum@openedhand.com>
+
 	* README:
 	* configure.ac:
 	* data/Makefile.am:
