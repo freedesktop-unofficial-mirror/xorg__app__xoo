@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Xoo
+Comment=Handheld Device Simulator
+Exec=xoo
+Terminal=false
+Type=Application
+Categories=GNOME;Application;Development;
+StartupNotify=true

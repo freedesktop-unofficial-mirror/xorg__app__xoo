@@ -6,3 +6,5 @@ device_DATA = ipaq3800.xml ipaq3800.png dot.png
 uidir = $(pkgdatadir)
 ui_DATA = Xoo.glade
 
+desktopdir = $(datadir)/applications
+desktop_DATA = xoo.desktop
