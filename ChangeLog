@@ -1,5 +1,19 @@
 2005-01-28  mallum,,,  <mallum@openedhand.com>
 
+	* src/button.c:
+	* src/callbacks.c: (on_about_activate), (on_delete_event_hide),
+	(on_select_device):
+	* src/callbacks.h:
+	* src/config.c: (config_get_val):
+	* src/fakedev.h:
+	* src/keys.c: (keys_xnest_connect):
+	* src/main.c: (fakeapp_new), (fakeapp_create_gui):
+	* src/prefs.c: (on_prefs_apply_clicked):
+	* src/prefs.h:
+	Just run through gnu indent.	
+
+2005-01-28  mallum,,,  <mallum@openedhand.com>
+
 	* configure.ac:
 	Bump Up version
 

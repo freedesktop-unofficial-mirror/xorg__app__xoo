@@ -20,31 +20,37 @@
 #include <gdk/gdkx.h>
 
 static int
-keys_xnest_connect(FakeApp *app)
+keys_xnest_connect (FakeApp * app)
 {
   int trys = 10;
 
-  do 
+  do
     {
-      if (--trys < 0) return 0;
+      if (--trys < 0)
+	return 0;
 
-      sleep(1); /* Sleep for a second to give Xnest a chance to start */
+      sleep (1);   /* Sleep for a second to give Xnest a chance to start */
 
-      app->xnest_dpy = XOpenDisplay(app->xnest_dpy_name);
+      app->xnest_dpy = XOpenDisplay (app->xnest_dpy_name);
       {
-        int num_children;
-        Window root, parent;
-        Window *windows;
-        XQueryTree (GDK_WINDOW_XDISPLAY (app->winnest->window), GDK_WINDOW_XWINDOW(app->winnest->window), &root, &parent, &windows, &num_children);
-        if (num_children != 0) {
-          app->xnest_window = windows[0];
-          XFree (windows);
-        } else {
-          app->xnest_window = 0;
-        }
+	int num_children;
+	Window root, parent;
+	Window *windows;
+	XQueryTree (GDK_WINDOW_XDISPLAY (app->winnest->window),
+		    GDK_WINDOW_XWINDOW (app->winnest->window), &root, &parent,
+		    &windows, &num_children);
+	if (num_children != 0)
+	  {
+	    app->xnest_window = windows[0];
+	    XFree (windows);
+	  }
+	else
+	  {
+	    app->xnest_window = 0;
+	  }
       }
     }
-  while ( app->xnest_dpy == NULL );
+  while (app->xnest_dpy == NULL);
 
   if (app->xnest_window == 0)
     {
@@ -55,43 +61,45 @@ keys_xnest_connect(FakeApp *app)
   return 1;
 }
 
-void 
-keys_send_key(FakeApp *app, KeySym keysym, int key_direction)
+void
+keys_send_key (FakeApp * app, KeySym keysym, int key_direction)
 {
   KeyCode character;
 
-  character = XKeysymToKeycode(app->xnest_dpy, keysym);
+  character = XKeysymToKeycode (app->xnest_dpy, keysym);
 
   switch (key_direction)
     {
     case KEYDOWN:
-      XTestFakeKeyEvent(app->xnest_dpy, (unsigned int) character, True, 0);
+      XTestFakeKeyEvent (app->xnest_dpy, (unsigned int) character, True, 0);
       break;
     case KEYUP:
-      XTestFakeKeyEvent(app->xnest_dpy, (unsigned int) character, False, 0);
+      XTestFakeKeyEvent (app->xnest_dpy, (unsigned int) character, False, 0);
       break;
     case KEYUPDOWN:
-      XTestFakeKeyEvent(app->xnest_dpy, (unsigned int) character, False, 0);
-      XTestFakeKeyEvent(app->xnest_dpy, (unsigned int) character, True, 0);
+      XTestFakeKeyEvent (app->xnest_dpy, (unsigned int) character, False, 0);
+      XTestFakeKeyEvent (app->xnest_dpy, (unsigned int) character, True, 0);
       break;
     }
 
   /* Make sure the event gets sent */
-  XFlush(app->xnest_dpy);
+  XFlush (app->xnest_dpy);
 
 }
 
 int
-keys_init(FakeApp *app)
+keys_init (FakeApp * app)
 {
   int event, error;
   int major, minor;
 
-  if (keys_xnest_connect(app))
+  if (keys_xnest_connect (app))
     {
-      if (!XTestQueryExtension(app->xnest_dpy, &event, &error, &major, &minor))
+      if (!XTestQueryExtension
+	  (app->xnest_dpy, &event, &error, &major, &minor))
 	{
-	  g_warning ("XTest extension not supported on server \"%s\"\n.", DisplayString(app->xnest_dpy));
+	  g_warning ("XTest extension not supported on server \"%s\"\n.",
+		     DisplayString (app->xnest_dpy));
 	  return 0;
 	}
 
