@@ -78,12 +78,14 @@ on_show_decorations_toggle (GtkCheckMenuItem * menuitem, FakeApp * app)
       gtk_widget_realize (app->window);
       gdk_window_shape_combine_mask (app->window->window, mask, 0, 0);
 
+      gtk_widget_hide (app->menubar);
       gtk_window_set_decorated (GTK_WINDOW (app->window), FALSE);
       gtk_check_menu_item_set_active (menuitem, FALSE);
     }
   else
     {
       gdk_window_shape_combine_mask (app->window->window, NULL, 0, 0);
+      gtk_widget_show (app->menubar);
       gtk_window_set_decorated (GTK_WINDOW (app->window), TRUE);
       gtk_check_menu_item_set_active (menuitem, TRUE);
     }

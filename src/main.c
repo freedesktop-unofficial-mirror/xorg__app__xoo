@@ -97,6 +97,7 @@ fakeapp_new (void)
 #endif
 
   app->window = glade_xml_get_widget (glade, "window");
+  app->menubar = glade_xml_get_widget (glade, "menubar");
   app->fixed = glade_xml_get_widget (glade, "fixed");
   gtk_fixed_set_has_window (GTK_FIXED (app->fixed), TRUE);
 
@@ -140,7 +141,7 @@ fakeapp_create_gui (FakeApp * app)
 
   /* Configure the main window title and size */
   gtk_window_set_title (GTK_WINDOW (app->window), app->win_title);
-  gtk_widget_set_size_request (app->window, app->device_width,
+  gtk_widget_set_size_request (app->fixed, app->device_width,
 			       app->device_height);
 
   /* Move and set the size of the window for the Xnest. */

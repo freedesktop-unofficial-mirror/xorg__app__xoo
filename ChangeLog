@@ -1,3 +1,12 @@
+2005-08-15  Ross Burton  <ross@burtonini.com>
+
+	* src/main.c:
+	* src/callbacks.c:
+	* src/fakedev.h:
+	Various fixes for themeing.  Set the size of the fixed widget not
+	the window so the image doesn't get clipped by the size of the
+	menu bar, and hide the menu bar when turning off decorations.
+	
 2005-01-28  mallum,,,  <mallum@openedhand.com>
 
 	* src/Makefile.am:

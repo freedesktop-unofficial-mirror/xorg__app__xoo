@@ -36,6 +36,7 @@ typedef struct FakeButton FakeButton;
 struct FakeApp
 {
   GtkWidget *window;
+  GtkWidget *menubar;
   GtkWidget *fixed;
   GtkWidget *winnest;
   GtkWidget *popupmenu;
