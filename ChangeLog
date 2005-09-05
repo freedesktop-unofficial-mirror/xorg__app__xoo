@@ -1,4 +1,10 @@
-2005-08-15  Ross Burton  <ross@burtonini.com>
+2005-09-05  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* NEWS:
+	Version 0.7.
+
+2005-08-15  Ross Burton  <ross@openedhand.com>
 
 	* src/main.c:
 	* src/callbacks.c:
