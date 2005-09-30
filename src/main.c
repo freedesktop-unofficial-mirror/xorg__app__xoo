@@ -156,7 +156,8 @@ fakeapp_create_gui (FakeApp * app)
   gtk_fixed_move (GTK_FIXED (app->fixed), app->back, 0, 0);
   gtk_image_set_from_pixbuf (GTK_IMAGE (app->back), app->device_img);
 
-  /* Now setup the buttons */
+  /* Now setup the buttons.  Should do this in realize but we can hack that */
+  gtk_widget_realize (app->fixed);
   for (button = app->button_head; button; button = button->next)
     {
       GtkWidget *eventbox;
