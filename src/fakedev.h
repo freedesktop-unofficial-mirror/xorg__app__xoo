@@ -38,6 +38,7 @@ struct FakeApp
   GtkWidget *window;
   GtkWidget *menubar;
   GtkWidget *fixed;
+  GtkWidget *back;
   GtkWidget *winnest;
   GtkWidget *popupmenu;
   GtkWidget *debug_menu;
