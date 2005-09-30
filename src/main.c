@@ -99,8 +99,7 @@ fakeapp_new (void)
   app->window = glade_xml_get_widget (glade, "window");
   app->menubar = glade_xml_get_widget (glade, "menubar");
   app->fixed = glade_xml_get_widget (glade, "fixed");
-  gtk_fixed_set_has_window (GTK_FIXED (app->fixed), TRUE);
-
+  app->back = glade_xml_get_widget (glade, "back");
   app->winnest = glade_xml_get_widget (glade, "winnest");
 
   g_signal_connect (app->window, "key-press-event",
@@ -134,7 +133,6 @@ fakeapp_new (void)
 void
 fakeapp_create_gui (FakeApp * app)
 {
-  GdkPixmap *back;
   GdkColor color;
   GdkGC *gc;
   FakeButton *button;
@@ -151,22 +149,12 @@ fakeapp_create_gui (FakeApp * app)
   gtk_fixed_move (GTK_FIXED (app->fixed), app->winnest,
 		  app->device_display_x, app->device_display_y);
 
-  /* Force this widget to have X resources, so we can use it */
-  gtk_widget_realize (app->fixed);
-
-  /* Set the device image, by setting the back buffer of the widget */
-  back =
-    gdk_pixmap_new (app->fixed->window, app->device_width, app->device_height,
-		    -1);
-  gc = gdk_gc_new (GDK_DRAWABLE (back));
-  gdk_color_parse ("black", &color);
-  gdk_gc_set_rgb_fg_color (gc, &color);
-  gdk_draw_rectangle (GDK_DRAWABLE (back), gc, TRUE, 0, 0, app->device_width,
-		      app->device_height);
-  gdk_draw_pixbuf (GDK_DRAWABLE (back), NULL, app->device_img, 0, 0, 0, 0, -1,
-		   -1, GDK_RGB_DITHER_NONE, 0, 0);
-  gdk_window_set_back_pixmap (app->fixed->window, back, FALSE);
-  g_object_unref (gc);
+  /* Set the device image */
+  gtk_widget_set_size_request (app->back,
+			       app->device_width,
+			       app->device_height);
+  gtk_fixed_move (GTK_FIXED (app->fixed), app->back, 0, 0);
+  gtk_image_set_from_pixbuf (GTK_IMAGE (app->back), app->device_img);
 
   /* Now setup the buttons */
   for (button = app->button_head; button; button = button->next)

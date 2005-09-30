@@ -18,6 +18,8 @@
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
   <signal name="destroy" handler="on_window_destroy" last_modification_time="Mon, 08 Nov 2004 12:58:27 GMT"/>
 
   <child>
@@ -29,6 +31,8 @@
       <child>
 	<widget class="GtkMenuBar" id="menubar">
 	  <property name="visible">True</property>
+	  <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
+	  <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
 
 	  <child>
 	    <widget class="GtkMenuItem" id="menuitem1">
@@ -42,7 +46,6 @@
 		  <child>
 		    <widget class="GtkMenuItem" id="select_device">
 		      <property name="visible">True</property>
-		      <property name="sensitive">True</property>
 		      <property name="label" translatable="yes">Select _Device...</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="on_select_device_activate" last_modification_time="Mon, 08 Nov 2004 12:08:36 GMT"/>
@@ -116,20 +119,45 @@
       </child>
 
       <child>
-	<widget class="GtkFixed" id="fixed">
+	<widget class="GtkEventBox" id="eventbox1">
 	  <property name="visible">True</property>
-	  <signal name="button_press_event" handler="on_popup_menu_show" last_modification_time="Mon, 08 Nov 2004 15:55:45 GMT"/>
+	  <property name="events">GDK_BUTTON_PRESS_MASK</property>
+	  <property name="visible_window">True</property>
+	  <property name="above_child">False</property>
+	  <signal name="button_press_event" handler="on_popup_menu_show" last_modification_time="Fri, 30 Sep 2005 15:04:11 GMT"/>
 
 	  <child>
-	    <widget class="GtkDrawingArea" id="winnest">
-	      <property name="width_request">50</property>
-	      <property name="height_request">50</property>
+	    <widget class="GtkFixed" id="fixed">
 	      <property name="visible">True</property>
+
+	      <child>
+		<widget class="GtkDrawingArea" id="winnest">
+		  <property name="width_request">50</property>
+		  <property name="height_request">50</property>
+		  <property name="visible">True</property>
+		</widget>
+		<packing>
+		  <property name="x">48</property>
+		  <property name="y">48</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkImage" id="back">
+		  <property name="width_request">21</property>
+		  <property name="height_request">21</property>
+		  <property name="visible">True</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+		<packing>
+		  <property name="x">8</property>
+		  <property name="y">8</property>
+		</packing>
+	      </child>
 	    </widget>
-	    <packing>
-	      <property name="x">48</property>
-	      <property name="y">48</property>
-	    </packing>
 	  </child>
 	</widget>
 	<packing>
@@ -144,6 +172,8 @@
 
 <widget class="GtkMenuBar" id="popupmenubar">
   <property name="visible">True</property>
+  <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
+  <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
 
   <child>
     <widget class="GtkMenuItem" id="popupmenu">
@@ -181,6 +211,8 @@
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
   <signal name="delete_event" handler="on_delete_event_hide" last_modification_time="Wed, 01 Dec 2004 18:42:22 GMT"/>
 
   <child>
@@ -231,6 +263,10 @@
 		      <property name="yalign">0.5</property>
 		      <property name="xpad">0</property>
 		      <property name="ypad">0</property>
+		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		      <property name="width_chars">-1</property>
+		      <property name="single_line_mode">False</property>
+		      <property name="angle">0</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">0</property>
@@ -255,6 +291,10 @@
 		      <property name="yalign">0.5</property>
 		      <property name="xpad">0</property>
 		      <property name="ypad">0</property>
+		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		      <property name="width_chars">-1</property>
+		      <property name="single_line_mode">False</property>
+		      <property name="angle">0</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">0</property>
@@ -279,6 +319,10 @@
 		      <property name="yalign">0.5</property>
 		      <property name="xpad">0</property>
 		      <property name="ypad">0</property>
+		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		      <property name="width_chars">-1</property>
+		      <property name="single_line_mode">False</property>
+		      <property name="angle">0</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">0</property>
@@ -406,6 +450,10 @@
 		      <property name="yalign">0.5</property>
 		      <property name="xpad">0</property>
 		      <property name="ypad">0</property>
+		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		      <property name="width_chars">-1</property>
+		      <property name="single_line_mode">False</property>
+		      <property name="angle">0</property>
 		    </widget>
 		    <packing>
 		      <property name="left_attach">0</property>
@@ -455,6 +503,10 @@
 	      <property name="yalign">0.5</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="width_chars">-1</property>
+	      <property name="single_line_mode">False</property>
+	      <property name="angle">0</property>
 	    </widget>
 	    <packing>
 	      <property name="type">label_item</property>
@@ -522,6 +574,8 @@
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <property name="focus_on_map">True</property>
+  <property name="urgency_hint">False</property>
   <signal name="delete_event" handler="on_delete_event_hide" last_modification_time="Wed, 01 Dec 2004 18:37:55 GMT"/>
 
   <child>
@@ -544,6 +598,10 @@
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
@@ -565,6 +623,10 @@
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
@@ -587,6 +649,10 @@ info@o-hand.com&lt;/small&gt;</property>
 	  <property name="yalign">0.5</property>
 	  <property name="xpad">0</property>
 	  <property name="ypad">0</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	  <property name="width_chars">-1</property>
+	  <property name="single_line_mode">False</property>
+	  <property name="angle">0</property>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
