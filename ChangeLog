@@ -1,5 +1,12 @@
 2006-02-10  Ross Burton  <ross@openedhand.com>
 
+	* data/Makefile.am:
+	* data/nokia-770.png:
+	* data/nokia-770.xml:
+	Add the start of a Nokia 770 skin.
+
+2006-02-10  Ross Burton  <ross@openedhand.com>
+
 	* src/main.c:
 	* src/callbacks.c:
 	Use NULL rather than 0 to end execl() so that GCC doesn't

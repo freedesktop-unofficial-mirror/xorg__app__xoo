@@ -1,0 +1,8 @@
+<skin>
+  <device
+    img="nokia-770.png"
+    width="1260" height="719"
+    display_width="800" display_height="480" display_depth="16"
+    display_x="277" display_y="120" />
+
+</skin>

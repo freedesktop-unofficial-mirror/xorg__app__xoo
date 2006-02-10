@@ -1,7 +1,10 @@
-EXTRA_DIST = ipaq3800.xml ipaq3800.png dot.png Xoo.glade xoo.desktop xoo.png
+IPAQ = ipaq3800.xml ipaq3800.png
+N770 = nokia-770.xml nokia-770.png
+
+EXTRA_DIST = $(IPAQ) $(N770) dot.png Xoo.glade xoo.desktop xoo.png
 
 devicedir = $(pkgdatadir)
-device_DATA = ipaq3800.xml ipaq3800.png dot.png
+device_DATA = dot.png $(IPAQ) $(N770)
 
 uidir = $(pkgdatadir)
 ui_DATA = Xoo.glade
