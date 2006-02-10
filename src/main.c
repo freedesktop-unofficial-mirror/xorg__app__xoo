@@ -313,7 +313,7 @@ fakeapp_start_server (FakeApp * app)
 	{
 	case 0:
 	  setenv ("DISPLAY", app->xnest_dpy_name, 1);
-	  execl ("/bin/sh", "sh", "-c", app->start_cmd, 0);
+	  execl ("/bin/sh", "sh", "-c", app->start_cmd, NULL);
 	  g_warning ("Failed to Launch %s\n", app->start_cmd);
 	  exit (1);
 	case -1:
