@@ -28,12 +28,12 @@
 #include <expat.h>
 #include "fakedev.h"
 
-unsigned char *
+char *
 config_load_file (const char *filename)
 {
   struct stat st;
   FILE *fp;
-  unsigned char *str;
+  char *str;
   int len;
   char tmp[1024];
 
@@ -298,7 +298,7 @@ config_xml_start_cb (void *data, const char *tag, const char **attr)
 int
 config_init (FakeApp * app, char *conf_file)
 {
-  unsigned char *data;
+  char *data;
   XML_Parser p;
 
   if ((data = config_load_file (conf_file)) == NULL)

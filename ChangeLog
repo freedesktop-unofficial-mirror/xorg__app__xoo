@@ -1,5 +1,10 @@
 2006-02-10  Ross Burton  <ross@openedhand.com>
 
+	* src/config.c:
+	Fix compile warnings.
+
+2006-02-10  Ross Burton  <ross@openedhand.com>
+
 	* data/Makefile.am:
 	* data/nokia-770.png:
 	* data/nokia-770.xml:
