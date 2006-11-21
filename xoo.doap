@@ -1,0 +1,47 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns="http://usefulinc.com/ns/doap#">
+  
+  <name>Xoo</name>
+  <created>2004-06-04</created>
+  
+  <shortdesc xml:lang="en">Xoo is a graphical wrapper around Xnest</shortdesc>
+  
+  <description xml:lang="en"> 
+    Xoo is a graphical wrapper around Xnest, the nested X server. You can make
+    Xnest look like a particular device's display and set up buttons on that
+    device.  This is useful for embedded developers who want to simulate a
+    target device on their desktop machine.
+  </description>
+
+  <homepage rdf:resource="http://projects.o-hand.com/xoo" />
+  <download-page rdf:resource="http://projects.o-hand.com/sources/xoo/" />
+  <license rdf:resource="http://usefulinc.com/doap/licenses/gpl" />
+  <bug-database rdf:resource="http://bugzilla.o-hand.com/enter_bug.cgi?product=Xoo"/>
+  <os>linux</os>
+  <programming-language>C</programming-language>
+  
+  <category rdf:resource="http://labs.o-hand.com/doap/category/graphics"/>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Ross Burton</foaf:name>
+    </foaf:Person>
+  </maintainer>
+
+  <repository>
+    <SVNRepository>
+      <browse rdf:resource="http://svn.o-hand.com/view/matchbox/trunk/Xoo"/>
+      <location rdf:resource="https://svn.o-hand.com/repos/matchbox/trunk/Xoo"/>
+    </SVNRepository>
+  </repository>
+
+  <release>
+    <Version>
+      <name>0.7</name>
+      <created>2005-09-05</created>
+      <branch></branch>
+      <revision>0.7</revision>
+      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.7.tar.gz" />
+    </Version>
+  </release>
+</Project>
