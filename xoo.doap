@@ -8,20 +8,23 @@
   <shortdesc xml:lang="en">Xoo is a graphical wrapper around Xnest</shortdesc>
   
   <description xml:lang="en"> 
-    Xoo is a graphical wrapper around Xnest, the nested X server. You can make
-    Xnest look like a particular device's display and set up buttons on that
-    device.  This is useful for embedded developers who want to simulate a
+    Xoo is a graphical wrapper around Xnest or Xephyr, the nested X servers. You
+    can make Xnest look like a particular device's display and set up buttons on
+    that device.  This is useful for embedded developers who want to simulate a
     target device on their desktop machine.
   </description>
 
+  <license rdf:resource="http://usefulinc.com/doap/licenses/gpl" />
+
   <homepage rdf:resource="http://projects.o-hand.com/xoo" />
   <download-page rdf:resource="http://projects.o-hand.com/sources/xoo/" />
-  <license rdf:resource="http://usefulinc.com/doap/licenses/gpl" />
   <bug-database rdf:resource="http://bugzilla.o-hand.com/enter_bug.cgi?product=Xoo"/>
+
   <os>linux</os>
   <programming-language>C</programming-language>
   
-  <category rdf:resource="http://labs.o-hand.com/doap/category/graphics"/>
+  <category rdf:resource="http://labs.o-hand.com/doap/category/tools"/>
+
   <maintainer>
     <foaf:Person>
       <foaf:name>Ross Burton</foaf:name>
@@ -42,6 +45,36 @@
       <branch></branch>
       <revision>0.7</revision>
       <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.7.tar.gz" />
+    </Version>
+  </release>
+
+  <release>
+    <Version>
+      <name>0.6</name>
+      <created>2005-01-28</created>
+      <branch></branch>
+      <revision>0.6</revision>
+      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.6.tar.gz" />
+    </Version>
+  </release>
+
+  <release>
+    <Version>
+      <name>0.5</name>
+      <created>2004-12-02</created>
+      <branch></branch>
+      <revision>0.5</revision>
+      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.5.tar.gz" />
+    </Version>
+  </release>
+
+  <release>
+    <Version>
+      <name>0.4</name>
+      <created>2004-11-30</created>
+      <branch></branch>
+      <revision>0.4</revision>
+      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.4.tar.gz" />
     </Version>
   </release>
 </Project>
