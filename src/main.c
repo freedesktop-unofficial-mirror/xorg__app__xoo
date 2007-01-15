@@ -26,7 +26,7 @@
 #include "callbacks.h"
 #include "prefs.h"
 
-#define XNEST_BIN "/usr/X11R6/bin/Xnest"
+#define XNEST_BIN "/usr/bin/Xephyr"
 
 /* Used by the signal handler to detect which child has died */
 pid_t xnest_pid;
@@ -36,13 +36,28 @@ static gboolean key_event (GtkWidget * widget, GdkEventKey * event,
 
 static void fakeapp_catch_sigchild (int sign);
 
+static char *
+find_spare_dpy (void)
+{
+  int i;
+  char buf[100];   
+  
+  for (i = 0; i < 256; i++) {
+    g_snprintf (buf, sizeof(buf), "/tmp/.X%d-lock", i);
+    if (access (buf, F_OK) != 0) {
+      return g_strdup_printf (":%i", i);
+    }
+  }
+  return NULL;
+}
+
 FakeApp *
 fakeapp_new (void)
 {
   GladeXML *glade;
   FakeApp *app = g_new0 (FakeApp, 1);
 
-  app->xnest_dpy_name = ":1";
+  app->xnest_dpy_name = find_spare_dpy ();
   app->xnest_bin_path = XNEST_BIN;
   app->xnest_bin_options = strdup ("-ac");	/* freed if changed */
 

@@ -1,3 +1,9 @@
+2007-01-15  Ross Burton  <ross@openedhand.com>
+
+	* src/main.c:
+	Use Xephyr by default, and attempt to find a spare display instead
+	of hard-coding :1.
+
 2006-02-10  Ross Burton  <ross@openedhand.com>
 
 	* src/config.c:
