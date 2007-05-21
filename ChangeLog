@@ -1,3 +1,10 @@
+2007-05-21  Ross Burton  <ross@openedhand.com>
+
+	* data/Makefile.am:
+	* data/nokia-n800.xml:
+	* data/nokia-n800.png:
+	Add Nokia N800 skin, thanks to Renato Araujo, and INdT for the image.
+
 2007-01-15  Ross Burton  <ross@openedhand.com>
 
 	* src/main.c:
