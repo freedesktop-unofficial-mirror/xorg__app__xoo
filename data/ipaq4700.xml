@@ -1,0 +1,30 @@
+<ipaq>
+
+<device  width='616' height='1022' 
+         display_width='480' display_height='640' 
+         display_x='69' display_y='187' 
+	 img='ipaq4700.png' />
+
+<!-- PIM buttons, left to right -->
+
+<button x='110' y='943' width='33' height='39' key='F1'/> 
+
+<button x='144' y='872' width='33' height='39' key='F2'/> 
+
+<button x='443' y='872' width='33' height='39' key='F3'/> 
+
+<button x='473' y='939' width='33' height='39' key='Escape'/> 
+
+<!-- Direction buttons n/e/s/w -->
+
+<button x='252' y='876' width='124' height='33' key='Up'/> 
+
+<button x='379' y='881' width='33' height='95' key='Right'/> 
+
+<button x='246' y='952' width='124' height='33' key='Down'/> 
+
+<button x='209' y='881' width='33' height='61' key='Left'/> 
+
+<button x='284' y='919' width='56' height='18' key='Return' img='dot.png'/> 
+
+</ipaq>

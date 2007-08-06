@@ -1,3 +1,10 @@
+2007-08-06  Ross Burton  <ross@openedhand.com>
+
+	* data/Makefile.am:
+	* data/ipaq4700.xml:
+	* data/ipaq4700.png:
+	Add iPaq 4700 skin, thanks to kmeaw.
+
 2007-05-21  Ross Burton  <ross@openedhand.com>
 
 	* data/Makefile.am:
