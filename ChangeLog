@@ -1,5 +1,12 @@
 2007-11-25  Ross Burton  <ross@openedhand.com>
 
+	* configure.ac:
+	* NEWS:
+	* xoo.doap:
+	Version 0.8.
+
+2007-11-25  Ross Burton  <ross@openedhand.com>
+
 	* src/main.c:
 	Make the iPaq 4700 the default skin.
 
