@@ -1,3 +1,8 @@
+2007-11-25  Ross Burton  <ross@openedhand.com>
+
+	* data/xoo.desktop:
+	Remove Application category.
+
 2007-11-14  Richard Purdie  <rpurdie@opened.com>
  
 	* configure.ac:
