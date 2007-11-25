@@ -1,5 +1,10 @@
 2007-11-25  Ross Burton  <ross@openedhand.com>
 
+	* src/main.c:
+	Make the iPaq 4700 the default skin.
+
+2007-11-25  Ross Burton  <ross@openedhand.com>
+
 	* data/xoo.desktop:
 	Remove Application category.
 

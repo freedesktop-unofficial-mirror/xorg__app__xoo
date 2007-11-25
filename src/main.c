@@ -388,7 +388,7 @@ int
 main (int argc, char **argv)
 {
   FakeApp *app;
-  char *device = PKGDATADIR "/ipaq3800.xml";
+  char *device = PKGDATADIR "/ipaq4700.xml";
   int i;
 
   gtk_init (&argc, &argv);
