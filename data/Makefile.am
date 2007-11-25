@@ -2,7 +2,6 @@ devicedir = $(pkgdatadir)
 dist_device_DATA = dot.png \
 	ipaq3800.xml ipaq3800.png \
 	ipaq4700.xml ipaq4700.png \
-	nokia-770.xml nokia-770.png \
 	nokia-n800.xml nokia-n800.png
 
 uidir = $(pkgdatadir)

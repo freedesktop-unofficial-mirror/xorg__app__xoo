@@ -7,6 +7,11 @@
 
 2007-11-25  Ross Burton  <ross@openedhand.com>
 
+	* data/:
+	Remove 770 skin.
+
+2007-11-25  Ross Burton  <ross@openedhand.com>
+
 	* src/main.c:
 	Make the iPaq 4700 the default skin.
 

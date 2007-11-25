@@ -3,7 +3,6 @@ Xoo 0.8
 
 * Add iPaq 4700 skin (thanks kmeaw)
 * Add Nokia N800 skin (thanks Renato Araujo)
-* Add Nokia 770 skin
 * Use Xephyr instead of Xnest by default
 * Fix configure file when building in sysroot
 * Fix desktop file
