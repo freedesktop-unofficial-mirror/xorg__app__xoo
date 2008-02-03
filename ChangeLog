@@ -1,3 +1,8 @@
+2008-02-03  Sven Herzberg  <sven@imendio.com>
+
+	* src/main.c:
+	Use GOptionContext instead of parsing argv manually (#754)
+
 2008-02-02  Sven Herzberg  <sven@imendio.com>
 
 	Fix signedness warnings.

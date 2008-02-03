@@ -26,7 +26,10 @@
 #include "callbacks.h"
 #include "prefs.h"
 
+#include <glib/gi18n.h>
+
 #define XNEST_BIN "/usr/bin/Xephyr"
+#define XNEST_DPY ":1"
 
 /* Used by the signal handler to detect which child has died */
 pid_t xnest_pid;
@@ -368,31 +371,49 @@ fakeapp_restart_server (FakeApp * app)
   return fakeapp_start_server (app);
 }
 
-void
-usage (char *progname)
-{
-  fprintf (stderr,
-	   "%s " VERSION " usage:\n"
-	   "--xnest-dpy,         -xd Display String for Xnest to use. ( default ':1')\n"
-	   "--xnest-bin,         -xn  Location of Xnest binary ( default "
-	   XNEST_BIN ")\n"
-	   "--xnest-bin-options  -xo  Command line opts to pass to server ( Default '-ac' )\n"
-	   "--title,             -t   Set the window title\n"
-	   "--device,            -d   Device config file to use\n"
-	   "--help,              -h   Show this help\n", progname);
-
-  exit (1);
-}
-
 int
 main (int argc, char **argv)
 {
+  gchar* xnest_binary  = NULL;
+  gchar* xnest_display = NULL;
+  gchar* xnest_options = NULL;
+  gchar* argv_device = NULL;
+  gchar* title = NULL;
+  GOptionContext* context;
+  GOptionEntry entries[] = {
+    {"device", 'd', 0, G_OPTION_ARG_STRING, &argv_device,
+     N_("Device config file to use"), N_("DEVICE")},
+    {"title", 't', 0, G_OPTION_ARG_STRING, &title,
+     N_("Set the window title"), N_("TITLE")},
+    {"xnest-bin", 'B', 0, G_OPTION_ARG_FILENAME, &xnest_binary,
+     N_("Location of Xnest binary (default " XNEST_BIN")"), N_("BINARY")},
+    {"xnest-bin-options", 'O', 0, G_OPTION_ARG_STRING, &xnest_options,
+     N_("Command line options to pass to server (default '-ac')"), N_("OPTIONS")},
+    {"xnest-dpy", 'D', 0, G_OPTION_ARG_STRING, &xnest_display,
+     N_("Display String for Xnest to use (default '" XNEST_DPY "')"), N_("DISPLAY")},
+    {NULL}
+  };
   FakeApp *app;
+  GError* error = NULL;
   char *device = PKGDATADIR "/ipaq4700.xml";
-  int i;
 
-  gtk_init (&argc, &argv);
-  /* TODO: use popt */
+  context = g_option_context_new ("");
+  g_option_context_set_description (context, _("Xoo is a graphical wrapper around Xnest"));
+  g_option_context_add_main_entries (context, entries, NULL);
+  g_option_context_set_help_enabled (context, TRUE);
+  g_option_context_set_ignore_unknown_options (context, FALSE);
+  g_option_context_add_group (context, gtk_get_option_group (TRUE));
+  if (!g_option_context_parse (context, &argc, &argv, &error))
+    {
+      gchar* help = g_option_context_get_help (context, TRUE, NULL);
+      g_option_context_free (context);
+      g_printerr ("%s: %s\n%s\n", _("Error"), help, error->message);
+      g_clear_error (&error);
+      g_free (help);
+      return 1;
+    }
+  g_clear_error (&error);
+  g_option_context_free (context);
 
   app = fakeapp_new ();
 
@@ -404,53 +425,20 @@ main (int argc, char **argv)
   gconf_prefs_init (app);
 #endif
 
-  for (i = 1; i < argc; i++)
-    {
-      if (!strcmp ("--xnest-dpy", argv[i]) || !strcmp ("-xd", argv[i]))
-	{
-	  if (++i >= argc)
-	    usage (argv[0]);
-	  app->xnest_dpy_name = argv[i];
-	  continue;
-	}
-      if (!strcmp ("--xnest-bin", argv[i]) || !strcmp ("-xn", argv[i]))
-	{
-	  if (++i >= argc)
-	    usage (argv[0]);
-	  app->xnest_bin_path = argv[i];
-	  continue;
-	}
-      if (!strcmp ("--xnest-bin-options", argv[i])
-	  || !strcmp ("-xo", argv[i]))
-	{
-	  if (++i >= argc)
-	    usage (argv[0]);
-	  app->xnest_bin_options = argv[i];
-	  continue;
-	}
+  if (xnest_display)
+    app->xnest_dpy_name = xnest_display;
 
-      if (!strcmp ("--device", argv[i]) || !strcmp ("-d", argv[i]))
-	{
-	  if (++i >= argc)
-	    usage (argv[0]);
-	  device = argv[i];
-	  continue;
-	}
-      if (!strcmp ("--title", argv[i]) || !strcmp ("-t", argv[i]))
-	{
-	  if (++i >= argc)
-	    usage (argv[0]);
-	  app->win_title = argv[i];
-	  continue;
-	}
+  if (xnest_binary)
+    app->xnest_bin_path = xnest_binary;
 
-      if (!strcmp ("--help", argv[i]) || !strcmp ("-h", argv[i]))
-	{
-	  usage (argv[0]);
-	}
+  if (xnest_options)
+    app->xnest_bin_options = xnest_options;
 
-      usage (argv[0]);
-    }
+  if (argv_device)
+    device = argv_device;
+
+  if (title)
+    app->win_title = title;
 
   config_init (app, device);
 
