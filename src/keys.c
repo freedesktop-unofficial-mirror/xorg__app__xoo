@@ -33,7 +33,7 @@ keys_xnest_connect (FakeApp * app)
 
       app->xnest_dpy = XOpenDisplay (app->xnest_dpy_name);
       {
-	int num_children;
+	unsigned int num_children;
 	Window root, parent;
 	Window *windows;
 	XQueryTree (GDK_WINDOW_XDISPLAY (app->winnest->window),

@@ -1,3 +1,10 @@
+2008-02-02  Sven Herzberg  <sven@imendio.com>
+
+	Fix signedness warnings.
+
+	* src/keys.c: (keys_xnest_connect): use an unsigned int for the number
+	of children
+
 2007-11-25  Ross Burton  <ross@openedhand.com>
 
 	* configure.ac:
