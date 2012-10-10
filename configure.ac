@@ -46,7 +46,7 @@ AM_CONDITIONAL(HAVE_GCONF, test -n "$GCONF_REQ")
 
 
 dnl TODO: make gconf optional
-PKG_CHECK_MODULES(APP, [gtk+-2.0 $GCONF_REQ])
+PKG_CHECK_MODULES(APP, [gtk+-3.0 $GCONF_REQ])
 
 dnl ------ XTest ------------------------------------------------------------
 

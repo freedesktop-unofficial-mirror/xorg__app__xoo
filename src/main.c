@@ -83,57 +83,57 @@ fakeapp_new (void)
   g_assert (builder != NULL);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "send_signal"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_send_signal_activate), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_send_signal_activate), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "quit"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_quit_activate), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_quit_activate), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "about"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_about_activate), app, NULL);
-
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
-  g_object_connect (G_OBJECT (widget), "destroy",
-    G_CALLBACK (on_window_destroy), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_about_activate), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "eventbox1"));
-  g_object_connect (G_OBJECT (widget), "button_press_event",
-    G_CALLBACK (on_popup_menu_show), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "button_press_event",
+  G_CALLBACK (on_popup_menu_show), app);
+
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+  g_signal_connect (G_OBJECT (widget), "destroy",
+  G_CALLBACK (on_window_destroy), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "show_decorations"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_show_decorations_toggle), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_show_decorations_toggle), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
-  g_object_connect (G_OBJECT (widget), "delete_event",
-    G_CALLBACK (on_delete_event_hide), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "delete_event",
+  G_CALLBACK (on_delete_event_hide), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "prefswindow"));
-  g_object_connect (G_OBJECT (widget), "delete_event",
-    G_CALLBACK (on_delete_event_hide), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "delete_event",
+  G_CALLBACK (on_delete_event_hide), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
-  g_object_connect (G_OBJECT (widget), "delete_event",
-    G_CALLBACK (on_delete_event_hide), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "delete_event",
+  G_CALLBACK (on_delete_event_hide), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "select_device"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_select_device), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_select_device), app);
 
 #if HAVE_GCONF
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
-  g_object_connect (G_OBJECT (widget), "activate",
-    G_CALLBACK (on_preferences_activate), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "activate",
+  G_CALLBACK (on_preferences_activate), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_apply"));
-  g_object_connect (G_OBJECT (widget), "clicked",
-    G_CALLBACK (on_prefs_apply_clicked), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "clicked",
+  G_CALLBACK (on_prefs_apply_clicked), app);
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_close"));
-  g_object_connect (G_OBJECT (widget), "clicked",
-    G_CALLBACK (on_prefs_cancel_clicked), app, NULL);
+  g_signal_connect (G_OBJECT (widget), "clicked",
+  G_CALLBACK (on_prefs_cancel_clicked), app);
 #else
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
   gtk_widget_hide (widget);
@@ -189,8 +189,6 @@ fakeapp_new (void)
 void
 fakeapp_create_gui (FakeApp * app)
 {
-  GdkColor color;
-  GdkGC *gc;
   FakeButton *button;
 
   /* Configure the main window title and size */
@@ -217,52 +215,59 @@ fakeapp_create_gui (FakeApp * app)
   for (button = app->button_head; button; button = button->next)
     {
       GtkWidget *eventbox;
-      button->normal_img =
-	gdk_pixmap_new (app->fixed->window, button->width, button->height,
-			-1);
-      gdk_draw_pixbuf (GDK_DRAWABLE (button->normal_img), NULL,
-		       app->device_img, button->x, button->y, 0, 0,
-		       button->width, button->height, GDK_RGB_DITHER_NONE, 0,
-		       0);
-      button->image = gtk_image_new_from_pixmap (button->normal_img, NULL);
+
+      button->normal_img = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                        button->width, button->height);
+
+      cairo_t *cr = cairo_create (button->normal_img);
+      gdk_cairo_set_source_pixbuf (cr, app->device_img, button->x, button->y);
+      cairo_paint (cr);
+      cairo_destroy (cr);
+
+      button->image = gtk_image_new_from_pixbuf (gdk_pixbuf_get_from_surface
+                        (button->normal_img, 0, 0, button->width, button->height));
+
       gtk_widget_show (button->image);
       eventbox = gtk_event_box_new ();
       gtk_widget_show (eventbox);
       gtk_container_add (GTK_CONTAINER (eventbox), button->image);
       g_signal_connect (eventbox, "button-press-event",
-			G_CALLBACK (button_press), button);
+                        G_CALLBACK (button_press), button);
       g_signal_connect (eventbox, "button-release-event",
-			G_CALLBACK (button_release), button);
+                        G_CALLBACK (button_release), button);
       gtk_fixed_put (GTK_FIXED (app->fixed), eventbox, button->x, button->y);
 
+      button->active_img = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
+                        button->width, button->height);
+
+      g_assert (button->active_img);
+
       if (button->overlay)
-	{
-	  button->active_img =
-	    gdk_pixmap_new (app->fixed->window, button->width, button->height,
-			    -1);
-	  g_assert (button->active_img);
-	  gc = gdk_gc_new (GDK_DRAWABLE (button->active_img));
-	  gdk_draw_drawable (button->active_img, gc, button->normal_img, 0, 0,
-			     0, 0, -1, -1);
-	  gdk_draw_pixbuf (button->active_img, gc, button->overlay, 0, 0, 0,
-			   0, -1, -1, GDK_RGB_DITHER_NONE, 0, 0);
-	}
+        {
+          cairo_t *cr = cairo_create (button->active_img);
+          cairo_set_source_surface (cr, button->normal_img, 0, 0);
+          cairo_paint (cr);
+
+          gdk_cairo_set_source_pixbuf (cr, button->overlay, 0, 0);
+          cairo_paint_with_alpha (cr, 1.0);
+
+          cairo_destroy (cr);
+        }
       else
-	{
-	  button->active_img =
-	    gdk_pixmap_new (app->fixed->window, button->width, button->height,
-			    -1);
-	  gdk_draw_pixbuf (button->active_img, NULL, app->device_img,
-			   button->x, button->y, 0, 0, button->width,
-			   button->height, GDK_RGB_DITHER_NONE, 0, 0);
-	  gc = gdk_gc_new (GDK_DRAWABLE (button->active_img));
-	  gdk_color_parse ("yellow", &color);
-	  gdk_gc_set_rgb_fg_color (gc, &color);
-	  gdk_draw_rectangle (GDK_DRAWABLE (button->active_img), gc, FALSE, 0,
-			      0, button->width - 1, button->height - 1);
-	  g_object_unref (gc);
-	}
+        {
+          cairo_t *cr = cairo_create (button->active_img);
+          gdk_cairo_set_source_pixbuf (cr, app->device_img, button->x, button->y);
+          cairo_paint (cr);
+
+          cairo_set_source_rgb (cr, 1.0, 1.0, 0.0);
+          cairo_set_line_width (cr, 2);
+          cairo_rectangle (cr, 0, 0, button->width, button->height);
+          cairo_stroke (cr);
+
+          cairo_destroy (cr);
+        }
     }
+
   gtk_widget_show (app->window);
 }
 
@@ -277,11 +282,12 @@ key_event (GtkWidget * widget, GdkEventKey * event, FakeApp * app)
     {
       XEvent xevent;
       xevent.xkey.type =
-	(event->type == GDK_KEY_PRESS) ? KeyPress : KeyRelease;
-      xevent.xkey.window = GDK_WINDOW_XWINDOW (app->winnest->window);
+        (event->type == GDK_KEY_PRESS) ? KeyPress : KeyRelease;
+      xevent.xkey.window = GDK_WINDOW_XID
+        (gtk_widget_get_window (app->winnest));
       xevent.xkey.root =
-	GDK_WINDOW_XWINDOW (gdk_screen_get_root_window
-			    (gdk_drawable_get_screen (app->winnest->window)));
+        GDK_WINDOW_XID (gdk_screen_get_root_window
+        (gdk_window_get_screen (gtk_widget_get_window (app->winnest))));
       xevent.xkey.time = event->time;
 
       /* FIXME, the following might cause problems for non-GTK apps */
@@ -296,8 +302,8 @@ key_event (GtkWidget * widget, GdkEventKey * event, FakeApp * app)
 
       gdk_error_trap_push ();
       XSendEvent (GDK_WINDOW_XDISPLAY
-		  (app->winnest->window), app->xnest_window,
-		  False, NoEventMask, &xevent);
+                  (gtk_widget_get_window (app->winnest)), app->xnest_window,
+                  False, NoEventMask, &xevent);
 
       gdk_display_sync (gtk_widget_get_display (widget));
 
@@ -318,7 +324,7 @@ fakeapp_start_server (FakeApp * app)
   gchar **exec_vector = NULL;
 
   g_snprintf (winid, 32, "%li",
-	      gdk_x11_drawable_get_xid (app->winnest->window));
+              gdk_x11_window_get_xid (gtk_widget_get_window (app->winnest)));
 
   g_snprintf (exec_buf, 2048, "%s %s %s -parent %s",
 	      "Xnest", app->xnest_dpy_name, app->xnest_bin_options, winid);

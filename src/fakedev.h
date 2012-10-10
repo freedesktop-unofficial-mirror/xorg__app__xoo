@@ -24,8 +24,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <gtk/gtkwidget.h>
-#include <gtk/gtkimage.h>
+#include <gtk/gtk.h>
 #include <X11/extensions/XTest.h>
 
 #include "config.h"
@@ -91,7 +90,7 @@ struct FakeButton
   KeySym keysym;
 
   GdkPixbuf *overlay;
-  GdkPixmap *normal_img, *active_img;
+  cairo_surface_t *normal_img, *active_img;
 
   int repeat;
 

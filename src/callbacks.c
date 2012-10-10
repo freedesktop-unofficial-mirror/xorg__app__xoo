@@ -17,11 +17,6 @@
 
 #include <signal.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkmain.h>
-#include <gtk/gtkmenu.h>
-#include <gtk/gtkmenuitem.h>
-#include <gtk/gtkcheckmenuitem.h>
-#include <gtk/gtkwindow.h>
 #include "fakedev.h"
 
 extern pid_t xnest_pid;
@@ -47,7 +42,7 @@ on_quit_activate (GtkMenuItem * menuitem, FakeApp * app)
 }
 
 void
-on_window_destroy (GtkObject * object, FakeApp * app)
+on_window_destroy (GInitiallyUnowned * object, FakeApp * app)
 {
   quit (app);
 }
@@ -67,24 +62,51 @@ on_popup_menu_show (GtkWidget * widget, GdkEventButton * event, FakeApp * app)
 void
 on_show_decorations_toggle (GtkCheckMenuItem * menuitem, FakeApp * app)
 {
+  GdkWindow *gdk_window;
+
+  gdk_window = gtk_widget_get_window (app->window);
   if (gtk_window_get_decorated (GTK_WINDOW (app->window)))
     {
-      GdkBitmap *mask;
-      mask =
-	gdk_pixmap_new (app->fixed->window, app->device_width,
-			app->device_height, 1);
-      gdk_pixbuf_render_threshold_alpha (app->device_img, mask, 0, 0, 0, 0,
-					 -1, -1, 128);
-      gtk_widget_realize (app->window);
-      gdk_window_shape_combine_mask (app->window->window, mask, 0, 0);
+	  /* we're shaping the window only if device image has an alpha channel */
+      if (gdk_pixbuf_get_has_alpha (app->device_img))
+        {
+          gint root_x, root_y;
+          cairo_surface_t *mask;
+          cairo_region_t *region;
+          cairo_t *cr;
 
-      gtk_widget_hide (app->menubar);
-      gtk_window_set_decorated (GTK_WINDOW (app->window), FALSE);
-      gtk_check_menu_item_set_active (menuitem, FALSE);
-    }
+          mask = cairo_image_surface_create (CAIRO_FORMAT_A1,
+		 app->device_width, app->device_height);
+
+          cr = cairo_create (mask);
+          gdk_cairo_set_source_pixbuf (cr, app->device_img, 0, 0);
+          cairo_paint (cr);
+
+          region = gdk_cairo_region_create_from_surface (mask);
+
+          gtk_window_get_position (GTK_WINDOW (app->window), &root_x, &root_y);
+          gtk_widget_hide (app->window);
+          gdk_window_shape_combine_region (gdk_window, region, 0, 0);
+          gtk_widget_shape_combine_region (app->window, region);
+          gtk_widget_show (app->window);
+
+          cairo_region_destroy (region);
+          cairo_destroy (cr);
+          cairo_surface_destroy (mask);
+
+          gtk_widget_realize (app->window);
+          gtk_window_move (GTK_WINDOW (app->window), root_x, root_y);
+
+          gtk_widget_hide (app->menubar);
+          gtk_window_set_decorated (GTK_WINDOW (app->window), FALSE);
+          gtk_check_menu_item_set_active (menuitem, FALSE);
+        }
+      }
   else
     {
-      gdk_window_shape_combine_mask (app->window->window, NULL, 0, 0);
+      gtk_widget_shape_combine_region (app->window, NULL);
+      gdk_window_shape_combine_region (gdk_window, NULL, 0, 0);
+
       gtk_widget_show (app->menubar);
       gtk_window_set_decorated (GTK_WINDOW (app->window), TRUE);
       gtk_check_menu_item_set_active (menuitem, TRUE);

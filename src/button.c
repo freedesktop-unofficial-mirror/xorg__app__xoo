@@ -17,7 +17,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <glib.h>
-#include <gtk/gtkimage.h>
+#include <gtk/gtk.h>
 #include "fakedev.h"
 
 FakeButton *
@@ -72,8 +72,9 @@ void
 button_press (GtkWidget * w, GdkEventButton * event, FakeButton * button)
 {
   g_return_if_fail (button != NULL);
-  gtk_image_set_from_pixmap (GTK_IMAGE (button->image), button->active_img,
-			     NULL);
+  gtk_image_set_from_pixbuf (GTK_IMAGE (button->image),
+	  gdk_pixbuf_get_from_surface (button->active_img,
+	  0, 0, button->width, button->height));
   keys_send_key (button->app, button->keysym, KEYDOWN);
 }
 
@@ -81,8 +82,9 @@ void
 button_release (GtkWidget * w, GdkEventButton * event, FakeButton * button)
 {
   g_return_if_fail (button != NULL);
-  gtk_image_set_from_pixmap (GTK_IMAGE (button->image), button->normal_img,
-			     NULL);
+  gtk_image_set_from_pixbuf (GTK_IMAGE (button->image),
+	  gdk_pixbuf_get_from_surface (button->normal_img,
+	  0, 0, button->width, button->height));
   keys_send_key (button->app, button->keysym, KEYUP);
 }
 

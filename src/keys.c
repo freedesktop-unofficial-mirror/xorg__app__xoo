@@ -36,8 +36,8 @@ keys_xnest_connect (FakeApp * app)
 	unsigned int num_children;
 	Window root, parent;
 	Window *windows;
-	XQueryTree (GDK_WINDOW_XDISPLAY (app->winnest->window),
-		    GDK_WINDOW_XWINDOW (app->winnest->window), &root, &parent,
+	XQueryTree (GDK_WINDOW_XDISPLAY (gtk_widget_get_window (app->winnest)),
+		    GDK_WINDOW_XID (gtk_widget_get_window (app->winnest)), &root, &parent,
 		    &windows, &num_children);
 	if (num_children != 0)
 	  {

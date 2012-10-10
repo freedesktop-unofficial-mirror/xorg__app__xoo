@@ -1,4 +1,4 @@
-#include <gtk/gtkmenuitem.h>
+#include <gtk/gtk.h>
 #include "fakedev.h"
 
 #define GCONF_DISPLAY "/apps/Xoo/display"

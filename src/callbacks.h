@@ -1,4 +1,4 @@
-#include <gtk/gtkmenuitem.h>
+#include <gtk/gtk.h>
 
 /* GTK+ callbacks */
 
@@ -10,7 +10,7 @@ void on_quit_activate (GtkMenuItem * menuitem, FakeApp * app);
 
 void on_about_activate (GtkMenuItem * menuitem, FakeApp * app);
 
-void on_window_destroy (GtkObject * widget, FakeApp * app);
+void on_window_destroy (GInitiallyUnowned * widget, FakeApp * app);
 
 gboolean
 on_popup_menu_show (GtkWidget * widget, GdkEventButton * event,
