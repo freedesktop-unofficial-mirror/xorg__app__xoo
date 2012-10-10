@@ -16,7 +16,7 @@
 #include "config.h"
 #include <string.h>
 #include <stdio.h>
-#include <glib/gmessages.h>
+#include <glib.h>
 #include <gtk/gtkimage.h>
 #include "fakedev.h"
 

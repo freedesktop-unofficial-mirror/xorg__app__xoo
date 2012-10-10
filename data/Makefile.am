@@ -5,7 +5,7 @@ dist_device_DATA = dot.png \
 	nokia-n800.xml nokia-n800.png
 
 uidir = $(pkgdatadir)
-dist_ui_DATA = Xoo.glade
+dist_ui_DATA = xoo.ui
 
 desktopdir = $(datadir)/applications
 dist_desktop_DATA = xoo.desktop

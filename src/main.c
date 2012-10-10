@@ -21,7 +21,6 @@
 #include <sys/wait.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
-#include <glade/glade-xml.h>
 #include "fakedev.h"
 #include "callbacks.h"
 #include "prefs.h"
@@ -57,7 +56,8 @@ find_spare_dpy (void)
 FakeApp *
 fakeapp_new (void)
 {
-  GladeXML *glade;
+  GtkBuilder *builder;
+  GtkWidget  *widget;
   FakeApp *app = g_new0 (FakeApp, 1);
 
   app->xnest_dpy_name = find_spare_dpy ();
@@ -72,53 +72,83 @@ fakeapp_new (void)
 
   app->win_title = "Xoo";
 
-  glade = glade_xml_new (PKGDATADIR "/Xoo.glade", NULL, NULL);
-  g_assert (glade != NULL);
+  GError *error = NULL;
+  builder = gtk_builder_new ();
+  if (!gtk_builder_add_from_file (builder, PKGDATADIR "/data/xoo.ui", &error))
+    {
+	g_warning ("Coulnd't load builder ui file : %s", error->message);
+	g_error_free (error);
+    }
 
-  glade_xml_signal_connect_data (glade, "on_send_signal_activate",
-				 (GCallback) on_send_signal_activate, app);
+  g_assert (builder != NULL);
 
-  glade_xml_signal_connect_data (glade, "on_quit_activate",
-				 (GCallback) on_quit_activate, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "send_signal"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_send_signal_activate), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_about_activate",
-				 (GCallback) on_about_activate, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "quit"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_quit_activate), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_window_destroy",
-				 (GCallback) on_window_destroy, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "about"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_about_activate), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_popup_menu_show",
-				 (GCallback) on_popup_menu_show, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+  g_object_connect (G_OBJECT (widget), "destroy",
+    G_CALLBACK (on_window_destroy), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_show_decorations_toggle",
-				 (GCallback) on_show_decorations_toggle, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "eventbox1"));
+  g_object_connect (G_OBJECT (widget), "button_press_event",
+    G_CALLBACK (on_popup_menu_show), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_delete_event_hide",
-				 (GCallback) on_delete_event_hide, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "show_decorations"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_show_decorations_toggle), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_select_device_activate",
-				 (GCallback) on_select_device, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
+  g_object_connect (G_OBJECT (widget), "delete_event",
+    G_CALLBACK (on_delete_event_hide), app, NULL);
+
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "prefswindow"));
+  g_object_connect (G_OBJECT (widget), "delete_event",
+    G_CALLBACK (on_delete_event_hide), app, NULL);
+
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
+  g_object_connect (G_OBJECT (widget), "delete_event",
+    G_CALLBACK (on_delete_event_hide), app, NULL);
+
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "select_device"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_select_device), app, NULL);
 
 #if HAVE_GCONF
-  glade_xml_signal_connect_data (glade, "on_preferences_activate",
-				 (GCallback) on_preferences_activate, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
+  g_object_connect (G_OBJECT (widget), "activate",
+    G_CALLBACK (on_preferences_activate), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_prefs_apply_clicked",
-				 (GCallback) on_prefs_apply_clicked, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_apply"));
+  g_object_connect (G_OBJECT (widget), "clicked",
+    G_CALLBACK (on_prefs_apply_clicked), app, NULL);
 
-  glade_xml_signal_connect_data (glade, "on_prefs_cancel_clicked",
-				 (GCallback) on_prefs_cancel_clicked, app);
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_close"));
+  g_object_connect (G_OBJECT (widget), "clicked",
+    G_CALLBACK (on_prefs_cancel_clicked), app, NULL);
 #else
-
-  gtk_widget_hide (glade_xml_get_widget (glade, "preferences"));
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
+  gtk_widget_hide (widget);
 
 #endif
-
-  app->window = glade_xml_get_widget (glade, "window");
-  app->menubar = glade_xml_get_widget (glade, "menubar");
-  app->fixed = glade_xml_get_widget (glade, "fixed");
-  app->back = glade_xml_get_widget (glade, "back");
-  app->winnest = glade_xml_get_widget (glade, "winnest");
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
+  app->window = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "menubar"));
+  app->menubar = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "fixed"));
+  app->fixed = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "back"));
+  app->back = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "winnest"));
+  app->winnest = widget;
 
   g_signal_connect (app->window, "key-press-event",
 		    (GCallback) key_event, app);
@@ -126,24 +156,32 @@ fakeapp_new (void)
   g_signal_connect (app->window, "key-release-event",
 		    (GCallback) key_event, app);
 
-  app->prefs_window = glade_xml_get_widget (glade, "prefswindow");
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "prefswindow"));
+  app->prefs_window = widget;
   gtk_window_set_transient_for (GTK_WINDOW (app->prefs_window),
 				GTK_WINDOW (app->window));
 
-  app->entry_display = glade_xml_get_widget (glade, "entry_display");
-  app->entry_server = glade_xml_get_widget (glade, "entry_server");
-  app->entry_options = glade_xml_get_widget (glade, "entry_options");
-  app->entry_start = glade_xml_get_widget (glade, "entry_start");
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "entry_display"));
+  app->entry_display = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "entry_server"));
+  app->entry_server = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "entry_options"));
+  app->entry_options = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "entry_start"));
+  app->entry_start = widget;
 
-  app->debug_menu = glade_xml_get_widget (glade, "send_signal");
-  app->popupmenu = glade_xml_get_widget (glade, "popupmenu_menu");
-  app->about_window = glade_xml_get_widget (glade, "aboutwindow");
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "send_signal"));
+  app->debug_menu = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "popupmenu_menu"));
+  app->popupmenu = widget;
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
+  app->about_window = widget;
 
   gtk_window_set_transient_for (GTK_WINDOW (app->about_window),
 				GTK_WINDOW (app->window));
 
-  g_signal_connect_swapped (glade_xml_get_widget
-			    (glade, "button_about_close"), "clicked",
+  widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_about_close"));
+  g_signal_connect_swapped (widget, "clicked",
 			    G_CALLBACK (gtk_widget_hide), app->about_window);
   return app;
 }
