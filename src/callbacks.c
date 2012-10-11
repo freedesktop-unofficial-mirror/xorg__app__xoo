@@ -116,7 +116,14 @@ on_show_decorations_toggle (GtkCheckMenuItem * menuitem, FakeApp * app)
 void
 on_about_activate (GtkMenuItem * menuitem, FakeApp * app)
 {
-  gtk_window_present (GTK_WINDOW (app->about_window));
+  gtk_show_about_dialog (NULL,
+                         "program-name", "Xoo",
+                         "version", VERSION,
+                         "copyright", "Copyright © 2004 OpenedHand Ltd\ninfo@o-hand.com",
+                         "comments", "A tool for simulating X-based small-screen devices",
+                         "logo-icon-name", "xoo",
+                         "license-type", GTK_LICENSE_GPL_2_0,
+                         NULL);
 }
 
 gboolean

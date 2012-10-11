@@ -106,15 +106,7 @@ fakeapp_new (void)
   g_signal_connect (G_OBJECT (widget), "activate",
   G_CALLBACK (on_show_decorations_toggle), app);
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
-  g_signal_connect (G_OBJECT (widget), "delete_event",
-  G_CALLBACK (on_delete_event_hide), app);
-
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "prefswindow"));
-  g_signal_connect (G_OBJECT (widget), "delete_event",
-  G_CALLBACK (on_delete_event_hide), app);
-
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
   g_signal_connect (G_OBJECT (widget), "delete_event",
   G_CALLBACK (on_delete_event_hide), app);
 
@@ -174,11 +166,6 @@ fakeapp_new (void)
   app->debug_menu = widget;
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "popupmenu_menu"));
   app->popupmenu = widget;
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "aboutwindow"));
-  app->about_window = widget;
-
-  gtk_window_set_transient_for (GTK_WINDOW (app->about_window),
-				GTK_WINDOW (app->window));
 
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_about_close"));
   g_signal_connect_swapped (widget, "clicked",

@@ -44,7 +44,6 @@ struct FakeApp
 
   GtkWidget *prefs_window;
   GtkWidget *entry_display, *entry_server, *entry_options, *entry_start;
-  GtkWidget *about_window;
 
   int device_width;
   int device_height;

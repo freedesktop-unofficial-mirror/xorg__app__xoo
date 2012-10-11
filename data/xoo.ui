@@ -1,92 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 2.12 -->
-  <!-- interface-naming-policy toplevel-contextual -->
-  <object class="GtkWindow" id="aboutwindow">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Xoo</property>
-    <property name="resizable">False</property>
-    <property name="type_hint">dialog</property>
-    <signal name="delete-event" handler="on_delete_event_hide" swapped="no"/>
-    <child>
-      <object class="GtkVBox" id="vbox3">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="border_width">8</property>
-        <property name="spacing">8</property>
-        <child>
-          <object class="GtkLabel" id="label6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;span size="xx-large"&gt;&lt;b&gt;Xoo&lt;/b&gt;&lt;/span&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label7">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">A tool for simulating X-based small-screen devices.</property>
-            <property name="justify">center</property>
-            <property name="wrap">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label8">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="label" translatable="yes">&lt;small&gt;Copyright © 2004 OpenedHand Ltd 
-info@o-hand.com&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
-            <property name="justify">center</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHButtonBox" id="hbuttonbox2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkButton" id="button_about_close">
-                <property name="label">gtk-close</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_about_close_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">False</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
+  <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkMenuBar" id="popupmenubar">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -452,12 +366,13 @@ info@o-hand.com&lt;/small&gt;</property>
                   <object class="GtkMenu" id="menuitem4_menu">
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkMenuItem" id="about">
+                      <object class="GtkImageMenuItem" id="about">
+                        <property name="label">gtk-about</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="label" translatable="yes">_About</property>
                         <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
                         <signal name="activate" handler="on_about_activate" swapped="no"/>
                       </object>
                     </child>
