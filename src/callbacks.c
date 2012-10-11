@@ -140,6 +140,7 @@ on_select_device (GtkMenuItem * menuitem, FakeApp * app)
 
   if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
     {
+      char cmd[PATH_MAX + 13];
       char *filename;
 
 
@@ -149,9 +150,10 @@ on_select_device (GtkMenuItem * menuitem, FakeApp * app)
 
       /* xxx FIXME, This is gross - just a very nasty hack for now xxx */
 
-      kill (xnest_pid, 9);
+      kill (xnest_pid, SIGKILL);
       sleep (2);
-      execl ("/bin/sh", "sh", "-c", "xoo", "--device", filename, NULL);
+      sprintf (cmd, "xoo --device %s", filename);
+      execl ("/bin/sh", "sh", "-c", cmd, NULL);
 
       g_warning ("Failed load device %s\n", filename);
 
