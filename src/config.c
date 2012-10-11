@@ -322,7 +322,7 @@ config_init (FakeApp * app, char *conf_file)
 
   if (!XML_Parse (p, data, strlen (data), 1))
     {
-      fprintf (stderr, "XML Parse error at line %d:\n%s\n",
+      fprintf (stderr, "XML Parse error at line %lu:\n%s\n",
 	       XML_GetCurrentLineNumber (p),
 	       XML_ErrorString (XML_GetErrorCode (p)));
       exit (1);
