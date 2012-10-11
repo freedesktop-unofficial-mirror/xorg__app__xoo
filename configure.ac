@@ -6,6 +6,7 @@ AC_INIT([Xoo], 0.8, [ross@openedhand.com])
 AC_CONFIG_SRCDIR([src/main.c])
 
 AM_INIT_AUTOMAKE()
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_CONFIG_HEADER(config.h)
 
 AC_ARG_WITH(expat-includes,    
