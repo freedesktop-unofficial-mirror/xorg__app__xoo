@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<schemalist>
+  <schema id="org.x.Xoo" path="/org/x/Xoo/">
+
+    <key name="display" type="s">
+      <default>':1'</default>
+      <summary>X Display</summary>
+      <description>Display string to be passed to the embedded X server</description>
+    </key>
+
+    <key name="xserver" type="s">
+      <default>'/usr/bin/Xephyr'</default>
+      <summary>X Server</summary>
+      <description>Fully-qualified path to the embedded X server (Xephyr or Xnest)</description>
+    </key>
+
+    <key name="xserver-options" type="s">
+      <default>'-ac'</default>
+      <summary>X Server Options</summary>
+      <description>Options to be passed to the embedded X server</description>
+    </key>
+
+    <key name="startup-command" type="s">
+      <default>''</default>
+      <summary>Startup Command</summary>
+      <description>Command to be launched within the embedded X server</description>
+    </key>
+
+  </schema>
+</schemalist>

@@ -12,3 +12,12 @@ dist_desktop_DATA = xoo.desktop
 
 pixmapdir = $(datadir)/pixmaps
 dist_pixmap_DATA = xoo.png
+
+convertdir = $(datadir)/GConf/gsettings
+dist_convert_DATA = xoo.convert
+
+gsettings_SCHEMAS = org.x.Xoo.gschema.xml
+
+@GSETTINGS_RULES@
+
+EXTRA_DIST = $(gsettings_SCHEMAS)

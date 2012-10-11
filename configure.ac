@@ -21,33 +21,8 @@ AC_ARG_WITH(expat-lib,
 AC_GNU_SOURCE
 AC_PROG_CC
 AC_PATH_XTRA
-AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
-
-AC_ARG_ENABLE(gconf,
-        AC_HELP_STRING([--enable-gconf], [Use GConf for preferences @<:@default=auto@:>@]),
-        ,enable_gconf=auto)
-GCONF_REQ=
-if test "x$enable_gconf" = "xyes"; then
-  GCONF_REQ="gconf-2.0"
-else
-  if test "x$enable_gconf" != "xno"; then
-    AC_MSG_CHECKING(for GConf)
-    if $PKG_CONFIG --exists gconf-2.0; then
-       AC_MSG_RESULT(yes)
-        GCONF_REQ="gconf-2.0"
-    else
-       AC_MSG_RESULT(no)
-    fi
-  fi
-fi
-if test -n "$GCONF_REQ"; then
-        AC_DEFINE([HAVE_GCONF], 1, [Defined when GConf is detected])
-fi
-AM_CONDITIONAL(HAVE_GCONF, test -n "$GCONF_REQ")
-
-
-dnl TODO: make gconf optional
-PKG_CHECK_MODULES(APP, [gtk+-3.0 $GCONF_REQ])
+GLIB_GSETTINGS
+PKG_CHECK_MODULES(APP, [gtk+-3.0])
 
 dnl ------ XTest ------------------------------------------------------------
 

@@ -114,7 +114,6 @@ fakeapp_new (void)
   g_signal_connect (G_OBJECT (widget), "activate",
   G_CALLBACK (on_select_device), app);
 
-#if HAVE_GCONF
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
   g_signal_connect (G_OBJECT (widget), "activate",
   G_CALLBACK (on_preferences_activate), app);
@@ -126,11 +125,7 @@ fakeapp_new (void)
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_close"));
   g_signal_connect (G_OBJECT (widget), "clicked",
   G_CALLBACK (on_prefs_cancel_clicked), app);
-#else
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "preferences"));
-  gtk_widget_hide (widget);
 
-#endif
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
   app->window = widget;
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "menubar"));
@@ -167,9 +162,6 @@ fakeapp_new (void)
   widget = GTK_WIDGET (gtk_builder_get_object (builder, "popupmenu_menu"));
   app->popupmenu = widget;
 
-  widget = GTK_WIDGET (gtk_builder_get_object (builder, "button_about_close"));
-  g_signal_connect_swapped (widget, "clicked",
-			    G_CALLBACK (gtk_widget_hide), app->about_window);
   return app;
 }
 
@@ -451,10 +443,8 @@ main (int argc, char **argv)
   app->argv = argv;
   app->argc = argc;
 
-#ifdef HAVE_GCONF
-  /* Do this here so that command line argument override the GConf prefs */
-  gconf_prefs_init (app);
-#endif
+  /* Do this here so that command line argument override the GSettings prefs */
+  gsettings_prefs_init (app);
 
   if (xnest_display)
     app->xnest_dpy_name = xnest_display;

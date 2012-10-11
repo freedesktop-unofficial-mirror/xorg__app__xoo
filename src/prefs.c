@@ -16,40 +16,40 @@
 #include "config.h"
 
 #include <string.h>
-#include <gconf/gconf-client.h>
+#include <gio/gio.h>
 #include <gtk/gtk.h>
 #include "prefs.h"
 
 gboolean fakeapp_restart_server (FakeApp * app);  /* TODO: move to a header */
 
-static GConfClient *gconf = NULL;
+static GSettings *gsettings = NULL;
 
 void
-gconf_prefs_init (FakeApp * app)
+gsettings_prefs_init (FakeApp * app)
 {
   char *s;
-  gconf = gconf_client_get_default ();
-  g_return_if_fail (gconf != NULL);
+  gsettings = g_settings_new ("org.x.Xoo");
+  g_return_if_fail (gsettings != NULL);
 
-  s = gconf_client_get_string (gconf, GCONF_DISPLAY, NULL);
+  s = g_settings_get_string (gsettings, "display");
   if (s != NULL && *s != '\0')
     {
       app->xnest_dpy_name = s;
     }
 
-  s = gconf_client_get_string (gconf, GCONF_SERVER, NULL);
+  s = g_settings_get_string (gsettings, "xserver");
   if (s != NULL && *s != '\0')
     {
       app->xnest_bin_path = s;
     }
 
-  s = gconf_client_get_string (gconf, GCONF_SERVER_OPTIONS, NULL);
+  s = g_settings_get_string (gsettings, "xserver-options");
   if (s != NULL && *s != '\0')
     {
       app->xnest_bin_options = s;
     }
 
-  s = gconf_client_get_string (gconf, GCONF_START_CMD, NULL);
+  s = g_settings_get_string (gsettings, "startup-command");
   if (s != NULL && *s != '\0')
     {
       app->start_cmd = s;
@@ -77,18 +77,18 @@ on_prefs_apply_clicked (GtkWidget * widget, FakeApp * app)
   const char *s = NULL;
 
   s = gtk_entry_get_text (GTK_ENTRY (app->entry_display));
-  gconf_client_set_string (gconf, GCONF_DISPLAY, s, NULL);
+  g_settings_set_string (gsettings, "display", s);
 
   s = gtk_entry_get_text (GTK_ENTRY (app->entry_server));
-  gconf_client_set_string (gconf, GCONF_SERVER, s, NULL);
+  g_settings_set_string (gsettings, "xserver", s);
 
   s = gtk_entry_get_text (GTK_ENTRY (app->entry_options));
-  gconf_client_set_string (gconf, GCONF_SERVER_OPTIONS, s, NULL);
+  g_settings_set_string (gsettings, "xserver-options", s);
 
   s = gtk_entry_get_text (GTK_ENTRY (app->entry_start));
-  gconf_client_set_string (gconf, GCONF_START_CMD, s, NULL);
+  g_settings_set_string (gsettings, "startup-command", s);
 
-  gconf_prefs_init (app);
+  gsettings_prefs_init (app);
   fakeapp_restart_server (app);
 
   gtk_widget_hide (app->prefs_window);

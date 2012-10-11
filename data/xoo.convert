@@ -1,0 +1,5 @@
+[org.x.Xoo]
+display = /apps/Xoo/display
+xserver = /apps/Xoo/xserver
+xserver-options = /apps/Xoo/xserver-options
+startup-command = /apps/Xoo/startup-command
