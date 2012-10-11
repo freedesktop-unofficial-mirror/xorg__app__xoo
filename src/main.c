@@ -74,7 +74,7 @@ fakeapp_new (void)
 
   GError *error = NULL;
   builder = gtk_builder_new ();
-  if (!gtk_builder_add_from_file (builder, PKGDATADIR "/data/xoo.ui", &error))
+  if (!gtk_builder_add_from_file (builder, PKGDATADIR "/xoo.ui", &error))
     {
 	g_warning ("Coulnd't load builder ui file : %s", error->message);
 	g_error_free (error);
