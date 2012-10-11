@@ -130,6 +130,10 @@ void
 on_select_device (GtkMenuItem * menuitem, FakeApp * app)
 {
   GtkWidget *dialog;
+  GtkFileFilter *filter;
+
+  filter = gtk_file_filter_new ();
+  gtk_file_filter_add_pattern (filter, "*.xml");
 
   dialog = gtk_file_chooser_dialog_new ("Open Device",
 					GTK_WINDOW (app->window),
@@ -137,6 +141,8 @@ on_select_device (GtkMenuItem * menuitem, FakeApp * app)
 					GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 					GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 					NULL);
+  gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), PKGDATADIR);
+  gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), filter);
 
   if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
     {
