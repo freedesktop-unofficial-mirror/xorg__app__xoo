@@ -418,7 +418,7 @@ main (int argc, char **argv)
   };
   FakeApp *app;
   GError* error = NULL;
-  char *device = PKGDATADIR "/ipaq4700.xml";
+  char *device = PKGDATADIR "/generic.xml";
 
   context = g_option_context_new ("");
   g_option_context_set_description (context, _("Xoo is a graphical wrapper around Xnest"));
