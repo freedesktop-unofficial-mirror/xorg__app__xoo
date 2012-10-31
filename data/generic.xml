@@ -1,0 +1,38 @@
+<generic>
+
+<!--
+	Example config 'device' file for a generic device.  
+	The format should be self-explanatory. 
+-->
+
+<!-- 
+     first define the window size, image and display geometry for your 
+     'fake' device.
+-->
+
+<device  width='700' height='469' 
+         display_width='560' display_height='335' 
+         display_x='71' display_y='42' 
+	 img='generic.png' />
+
+<!-- Buttons ( optional )
+     Th define each of the buttons. Note, there are a couple of extra
+     optional attributes not used here;
+
+     - 'img' - set to an image pathname for the down state of the button
+       
+     - repeat = 'on|off' , Turn key repeat on/off for that key. By default
+       key repeat is on.    
+ -->
+
+<button x='89'  y='419' width='49' height='24' key='a' img='generic_btn_down.png'/> 
+
+<button x='253' y='425' width='98' height='30' key='b'/> 
+
+<button x='352' y='425' width='98' height='30' key='c'/> 
+
+<button x='549' y='421' width='36' height='17' key='d'/> 
+
+<button x='613' y='421' width='36' height='17' key='e'/> 
+
+</generic>
