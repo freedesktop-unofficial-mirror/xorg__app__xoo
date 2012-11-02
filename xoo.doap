@@ -40,10 +40,19 @@
 
   <release>
     <Version>
+      <name>0.9</name>
+      <created>2012-11-01</created>
+      <revision>0.9</revision>
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.9.tar.gz" />
+    </Version>
+  </release>
+
+  <release>
+    <Version>
       <name>0.8</name>
       <created>2007-11-25</created>
       <revision>0.8</revision>
-      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.8.tar.gz" />
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.8.tar.gz" />
     </Version>
   </release>
 
@@ -53,7 +62,7 @@
       <created>2005-09-05</created>
       <branch></branch>
       <revision>0.7</revision>
-      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.7.tar.gz" />
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.7.tar.gz" />
     </Version>
   </release>
 
@@ -63,7 +72,7 @@
       <created>2005-01-28</created>
       <branch></branch>
       <revision>0.6</revision>
-      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.6.tar.gz" />
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.6.tar.gz" />
     </Version>
   </release>
 
@@ -73,7 +82,7 @@
       <created>2004-12-02</created>
       <branch></branch>
       <revision>0.5</revision>
-      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.5.tar.gz" />
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.5.tar.gz" />
     </Version>
   </release>
 
@@ -83,7 +92,7 @@
       <created>2004-11-30</created>
       <branch></branch>
       <revision>0.4</revision>
-      <file-release rdf:resource="http://projects.o-hand.com/sources/xoo/xoo-0.4.tar.gz" />
+      <file-release rdf:resource="http://people.freedesktop.org/~fredinfinite23/releases/xoo/xoo-0.4.tar.gz" />
     </Version>
   </release>
 </Project>

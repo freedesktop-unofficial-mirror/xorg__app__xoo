@@ -1,3 +1,19 @@
+2012-11-01  Frederic Plourde  <frederic.plourde@collabora.co.uk>
+
+	* data/Makefile.am
+	* data/generic.png
+	* data/generic.xml
+	* data/generic_btn_down.png :
+	Add a new 'generic' default skin
+
+	* src/main.c :
+	Set default skin to 'generic.png' on startup
+
+	* configure.ac
+	* NEWS
+	* xoo.doapp:
+	Version 0.9
+
 2008-02-03  Sven Herzberg  <sven@imendio.com>
 
 	* src/main.c:

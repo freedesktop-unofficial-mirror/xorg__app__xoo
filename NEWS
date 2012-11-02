@@ -1,3 +1,13 @@
+Xoo 0.9
+=======
+
+* Port to GTK+3
+* Port to Gsettings
+* Use GtkBuilder instead of libglade
+* Add generic skin
+* Provide default location and filetype in file chooser
+* Use GtkAboutDialog for About
+
 Xoo 0.8
 =======
 
