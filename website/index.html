@@ -4,8 +4,7 @@
   <head>
     <title>Xoo</title>
     <link rel="stylesheet" type="text/css" href="default.css" />
-    <link rel="icon" href="http://www.openedhand.com/images/favicon.ico" />
-    <meta name="description" content="matchbox nest embedded x" />
+    <meta name="description" content="Xoo, the Xserver wrapper" />
   </head>
 
   <body>
@@ -16,22 +15,22 @@
     <div id="content">
     <h2>About</h2>
       <p>
-        Xoo ( formally matchbox-nest ) is a GTK2 based graphical wrapper around a 'Windowed' X Server. It is
-        intended for embedded developers that want to simulate a target device
+        Xoo is a GTK3-based graphical wrapper around a 'Windowed' X Server like Xephyr.
+        It is intended for embedded developers that want to simulate a target device
         (with an accurate display size, working hardware buttons, etc) on a
         desktop machine.
       </p>
       
       <p>
-        The size of the embedded X server, and the image around it, are
-        themable by the user.  The default theme is based on a Compaq iPaq,
-        and supports the hardware buttons.  Creating new themes is done by
-        writing a single simple XML file.
+        The size of the embedded X server, and the skin image around it, are
+        customizable by the user.  The default skin is based a generic one,
+        and supports the hardware buttons.  Creating new skins is done by
+        writing a simple XML file.
       </p>
       
       <p>
         The embedded X server can either be <tt>Xnest</tt> (XFree86/X.org) or <a
-        href="http://www.freedesktop.org/wiki/Software_2fXephyr"><tt>Xephyr</tt></a>
+        href="http://www.freedesktop.org/wiki/Software/Xephyr"><tt>Xephyr</tt></a>
         (kdrive).  The advantage of using <tt>Xephyr</tt> is that it supports
         the newer X extensions such as Render, RandR, Composite, and Damage;
         allowing you to test applications using these extensions even if your
@@ -41,41 +40,34 @@
       </p>
 
       <p>
-      Xoo is authored by Matthew Allum and Ross Burton. It is free software, available under the GPL.
+      Xoo is authored by Matthew Allum and Ross Burton and ported to GTK3 by Frederic Plourde.
+      It is free software, available under the GPL.
       </p>
       
       <h2>Screenshots</h2>
       <p>
-        This is the default theme, a Compaq iPaq running <a href="http://projects.o-hand.com/matchbox">matchbox</a>.
+        This is the default theme, a 'generic' device.
       </p>
-      <img src="mb-nest-1.png" alt="Compaq iPaq theme"/>
+      <img src="generic_skin_undecorated.png" alt="Generic Skin"/>
     
       <h2>Download</h2>
       <p>
-        Tarballs for download are available at <a
-        href="http://projects.o-hand.com/xoo/sources/"><tt>http://projects.o-hand.com/xoo/sources/</tt></a>.
+        Tarballs for download are <a href="http://people.freedesktop.org/~fredinfinite23/releases/xoo/">available here</a>.
         Debian packages are prepared and should be in <tt>unstable</tt> shortly.
       </p>
       <h2>Development</h2>
       <p>
 
-      For Development code, use subversion;
+      For Development code, use git:
 
       </p>
       <pre>
-         svn co http://svn.o-hand.com/repos/matchbox/trunk/xoo xoo
+         git clone git://anongit.freedesktop.org/xorg/app/xoo 
       </pre>
 <p>
-      You can also <a href="http://svn.o-hand.com/view/matchbox/trunk/Xoo/">browse the repository</a>.
+      You can also <a href="http://cgit.freedesktop.org/xorg/app/xoo">browse the repository</a>.
 </p>
-<p>
-       If you want to help out with development, please check the <a href="http://svn.o-hand.com/repos/matchbox/trunk/Xoo/TODO">TODO</a>.
-      </p>
-
 </p>
-    </div>
-    <div id="footer">
-     &copy; 2004 <a href="http://o-hand.com">OpenedHand</a> Ltd.
     </div>
   </body>
 </html>
